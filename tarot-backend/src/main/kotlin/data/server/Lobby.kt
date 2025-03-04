@@ -14,6 +14,14 @@ class Lobby(val key: String) {
         players.remove(username)
     }
 
+    suspend fun broadcastPlayerTurn(player: String) {
+        broadcast("$player's turn")
+    }
+
+    suspend fun broadcastPlayerTurnWin(player: String) {
+        broadcast("$player won this turn")
+    }
+
     suspend fun broadcast(message: String) {
         players.values.forEach { it.session.send(Frame.Text(message)) }
     }

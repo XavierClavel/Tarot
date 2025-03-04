@@ -1,21 +1,23 @@
+using System.Web;
 using NativeWebSocket;
 using UnityEngine;
 
-public class NetworkManager: MonoBehaviour
+public class LobbyManager: MonoBehaviour
 {
-    static WebSocket websocket = null;
-    private static NetworkManager instance = null;
+    private WebSocket websocket = null;
+    private string lobbyKey = "";
   
     // Start is called before the first frame update
-    async void Start()
+    public async void join(string lobby, string username)
     {
-        instance = this;
-        if (websocket != null)
-        {
-            return;
-        }
+        lobbyKey = lobby;
+        Debug.Log($"'{lobbyKey}'");
+        var cleanedLobby = lobby.Trim().Replace("\u200B", "");
+        var cleanedUsername = username.Trim().Replace("\u200B", "");
+        var url = $"ws://{Vault.url}/lobby/{cleanedLobby}/{cleanedUsername}";
+        Debug.Log($"'{url}'");
       
-        websocket = new WebSocket("ws://localhost:3535/ws");
+        websocket = new WebSocket(url);
     
         websocket.OnOpen += () =>
         {
@@ -41,9 +43,6 @@ public class NetworkManager: MonoBehaviour
                var message = System.Text.Encoding.UTF8.GetString(bytes);
                Debug.Log("OnMessage! " + message);
         };
-    
-        // Keep sending messages at every 0.3s
-        InvokeRepeating(nameof(SendWebSocketMessage), 0.0f, 0.3f);
     
         // waiting for messages
         await websocket.Connect();
