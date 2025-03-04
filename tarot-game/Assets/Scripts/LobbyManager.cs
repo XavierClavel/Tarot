@@ -1,3 +1,4 @@
+using System;
 using System.Web;
 using NativeWebSocket;
 using UnityEngine;
@@ -36,12 +37,13 @@ public class LobbyManager: MonoBehaviour
     
         websocket.OnMessage += (bytes) =>
         {
-              Debug.Log("OnMessage!");
+            onMessageReceived(System.Text.Encoding.Default.GetString(bytes));
+              //Debug.Log("OnMessage!");
               //Debug.Log(bytes);
         
               // getting the message as a string
-               var message = System.Text.Encoding.UTF8.GetString(bytes);
-               Debug.Log("OnMessage! " + message);
+               //var message = System.Text.Encoding.UTF8.GetString(bytes);
+               //Debug.Log("OnMessage! " + message);
         };
     
         // waiting for messages
@@ -70,5 +72,19 @@ public class LobbyManager: MonoBehaviour
     private async void OnApplicationQuit()
     {
       await websocket.Close();
+    }
+
+    private void onMessageReceived(string json)
+    {
+        Debug.Log(json);
+        WebSocketMessage baseMessage = JsonUtility.FromJson<WebSocketMessage>(json);
+
+        switch (baseMessage.type)
+        {
+            case "player_joined":
+                PlayerJoined playerJoined = JsonUtility.FromJson<PlayerJoined>(json);
+                Debug.Log($"{playerJoined.username} joined the lobby");
+                break;
+        }
     }
 }

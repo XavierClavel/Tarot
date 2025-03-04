@@ -11,12 +11,21 @@ import io.ktor.websocket.CloseReason
 import io.ktor.websocket.Frame
 import io.ktor.websocket.close
 import io.ktor.websocket.readText
+import kotlinx.serialization.json.Json
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.ktor.ext.inject
 import xclavel.config.appModules
 import xclavel.config.configureRouting
 import xclavel.config.configureSockets
+import xclavel.data.server.BidMade
+import xclavel.data.server.CardPlayed
+import xclavel.data.server.DogMade
 import xclavel.data.server.Player
+import xclavel.data.server.PlayerJoined
+import xclavel.data.server.PlayerLeft
+import xclavel.data.server.PlayerTurn
+import xclavel.data.server.TurnWon
+import xclavel.data.server.WebSocketMessage
 import xclavel.services.LobbyService
 import xclavel.utils.logger
 
@@ -35,6 +44,8 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     val lobbyService by inject<LobbyService>()
+    val json = Json { classDiscriminator = "type" }
+
     configureSockets()
     configureRouting()
 
@@ -53,14 +64,25 @@ fun Application.module() {
             val player = Player(username, this)
 
             lobby.addPlayer(player)
-            lobby.broadcast("$username joined the lobby.")
+            lobby.broadcast(PlayerJoined(username))
 
             for (frame in incoming) {
                 if (frame is Frame.Text) {
                     val text = frame.readText()
-                    outgoing.send(Frame.Text("YOU SAID: $text"))
-                    if (text.equals("bye", ignoreCase = true)) {
-                        close(CloseReason(CloseReason.Codes.NORMAL, "Client said BYE"))
+                    try {
+                        val message = json.decodeFromString<WebSocketMessage>(text)
+
+                        when (message) {
+                            is PlayerJoined -> println("${message.username} joined the lobby.")
+                            is BidMade -> TODO()
+                            is CardPlayed -> TODO()
+                            is DogMade -> TODO()
+                            is PlayerLeft -> TODO()
+                            is PlayerTurn -> TODO()
+                            is TurnWon -> TODO()
+                        }
+                    } catch (e: Exception) {
+                        println("Error decoding WebSocket message: $e")
                     }
                 }
             }

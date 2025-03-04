@@ -4,6 +4,7 @@ val logback_version: String by project
 plugins {
     kotlin("jvm") version "2.1.10"
     id("io.ktor.plugin") version "3.1.1"
+    kotlin("plugin.serialization") version "2.1.10"
 }
 
 group = "xclavel"
@@ -34,4 +35,6 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 
     implementation("io.insert-koin:koin-ktor:$koinVersion")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 }

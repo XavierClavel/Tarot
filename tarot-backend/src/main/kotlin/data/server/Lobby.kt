@@ -1,10 +1,15 @@
 package xclavel.data.server
 
+import kotlinx.serialization.json.Json
+import io.ktor.server.websocket.DefaultWebSocketServerSession
 import io.ktor.websocket.Frame
+import io.ktor.websocket.WebSocketSession
+import kotlinx.serialization.builtins.serializer
 import java.util.concurrent.ConcurrentHashMap
 
 class Lobby(val key: String) {
     private val players = ConcurrentHashMap<String, Player>()
+    val json = Json { classDiscriminator = "type" }
 
     fun addPlayer(player: Player) {
         players[player.username] = player
@@ -14,16 +19,14 @@ class Lobby(val key: String) {
         players.remove(username)
     }
 
-    suspend fun broadcastPlayerTurn(player: String) {
-        broadcast("$player's turn")
+
+    suspend fun broadcast(message: WebSocketMessage) {
+        players.values.forEach { it.session.sendMessage(message) }
     }
 
-    suspend fun broadcastPlayerTurnWin(player: String) {
-        broadcast("$player won this turn")
-    }
-
-    suspend fun broadcast(message: String) {
-        players.values.forEach { it.session.send(Frame.Text(message)) }
+    suspend fun WebSocketSession.sendMessage(message: WebSocketMessage) {
+        val jsonMessage = json.encodeToString(WebSocketMessage.serializer(), message)
+        outgoing.send(Frame.Text(jsonMessage))
     }
 
     fun isEmpty(): Boolean = players.isEmpty()

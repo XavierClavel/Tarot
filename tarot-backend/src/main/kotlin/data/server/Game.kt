@@ -1,17 +1,10 @@
-package xclavel.data.server.data.server
+package xclavel.data.server
 
-import io.ktor.util.collections.ConcurrentSet
-import io.ktor.websocket.Frame
-import io.ktor.websocket.WebSocketSession
 import org.koin.java.KoinJavaComponent.inject
 import xclavel.InvalidAction
-import xclavel.data.server.Lobby
-import xclavel.data.server.Player
 import xclavel.data.tarot.Card
-import xclavel.services.LobbyService
 import xclavel.services.services.TarotService
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentLinkedDeque
 
 class Game(val lobby: Lobby) {
     val tarotService by inject<TarotService>(TarotService::class.java)
@@ -26,13 +19,16 @@ class Game(val lobby: Lobby) {
         if (player != currentPlayer) {
             throw InvalidAction("Not your turn")
         }
+        if (card.owner != currentPlayer) {
+            throw InvalidAction("Not your card")
+        }
         currentLevee.add(card)
         if (isRoundComplete()) {
             val bestCard = tarotService.findBestCard(currentLevee)
-            lobby.broadcastPlayerTurn(bestCard.owner!!.username)
+            lobby.broadcast(PlayerTurn(bestCard.owner!!.username))
         } else {
             getNextPlayer()
-            lobby.broadcastPlayerTurn(player.username)
+            lobby.broadcast(PlayerTurn(player.username))
         }
 
     }
