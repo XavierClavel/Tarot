@@ -64,7 +64,7 @@ fun Application.module() {
             val player = Player(username, this)
 
             lobby.addPlayer(player)
-            lobby.broadcast(PlayerJoined(username))
+            lobby.broadcast(PlayerJoined(lobby.getPlayers()))
 
             for (frame in incoming) {
                 if (frame is Frame.Text) {
@@ -73,8 +73,8 @@ fun Application.module() {
                         val message = json.decodeFromString<WebSocketMessage>(text)
 
                         when (message) {
-                            is PlayerJoined -> println("${message.username} joined the lobby.")
-                            is PlayerLeft -> println("${message.username} left the lobby.")
+                            is PlayerJoined -> TODO()
+                            is PlayerLeft -> TODO()
                             is BidMade -> TODO()
                             is CardPlayed -> TODO()
                             is DogMade -> TODO()

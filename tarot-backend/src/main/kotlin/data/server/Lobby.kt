@@ -11,6 +11,8 @@ class Lobby(val key: String) {
     private val players = ConcurrentHashMap<String, Player>()
     val json = Json { classDiscriminator = "type" }
 
+    fun getPlayers(): List<String> = players.values.sortedBy { it.joinTime }.map { it.username }
+
     fun addPlayer(player: Player) {
         players[player.username] = player
     }

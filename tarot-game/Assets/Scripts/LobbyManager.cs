@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using NativeWebSocket;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class LobbyManager: MonoBehaviour
     private static LobbyManager instance = null;
     private WebSocket websocket = null;
     private string lobbyKey = "";
-    private HashSet<string> players = new HashSet<string>(); 
+    private List<string> players = new List<string>(); 
   
     // Start is called before the first frame update
     public async void join(string lobby, string username)
@@ -86,9 +87,9 @@ public class LobbyManager: MonoBehaviour
         {
             case "player_joined":
                 PlayerJoined playerJoined = JsonUtility.FromJson<PlayerJoined>(json);
-                Debug.Log($"{playerJoined.username} joined the lobby");
-                players.Add(playerJoined.username);
-                EventManagers.player.dispatchEvent(it => it.onPlayerJoin(playerJoined.username));
+                Debug.Log($"{playerJoined.users.Last()} joined the lobby");
+                players.Add(playerJoined.users.Last());
+                EventManagers.player.dispatchEvent(it => it.onPlayerJoin(playerJoined.users));
                 break;
             
             case "player_left":

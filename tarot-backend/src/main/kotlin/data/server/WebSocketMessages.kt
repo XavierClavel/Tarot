@@ -13,7 +13,7 @@ sealed class WebSocketMessage
 
 @Serializable
 @SerialName("player_joined")
-data class PlayerJoined(val username: String) : WebSocketMessage()
+data class PlayerJoined(val users: List<String>) : WebSocketMessage()
 
 @Serializable
 @SerialName("player_left")

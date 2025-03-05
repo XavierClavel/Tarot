@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -26,6 +26,19 @@ public class LobbyDisplay : MonoBehaviour, IPlayerListener
         playerDisplay.name = username;
         playerDisplay.text = username;
         Helpers.SetParent(playerDisplay.transform, playerDisplayLayout);
+    }
+
+    public void onPlayerJoin(List<string> users)
+    {
+        var children = playerDisplayLayout.transform.getChildren().map(it => it.name);
+        foreach (string username in users)
+        {
+            if (children.Contains(username)) continue;
+            var playerDisplay = Instantiate(playerDisplayPrefab);
+            playerDisplay.name = username;
+            playerDisplay.text = username;
+            Helpers.SetParent(playerDisplay.transform, playerDisplayLayout);
+        }
     }
 
     public void onPlayerLeft(string username)
