@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -29,7 +30,9 @@ public class Player : MonoBehaviour
     private void joinLobby(string key)
     {
         lobby = Instantiate(lobbyManagerPrefab);
+        DontDestroyOnLoad(lobby);
         lobby.join(key, getUsername());
+        SceneManager.LoadScene(Vault.scene.Lobby);
     }
 
     private string getUsername() => usernameInput.text.Trim();

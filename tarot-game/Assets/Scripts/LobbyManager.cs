@@ -1,16 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.Web;
 using NativeWebSocket;
 using UnityEngine;
 
 public class LobbyManager: MonoBehaviour
 {
+    private static LobbyManager instance = null;
     private WebSocket websocket = null;
     private string lobbyKey = "";
+    private HashSet<string> players = new HashSet<string>(); 
   
     // Start is called before the first frame update
     public async void join(string lobby, string username)
     {
+        instance = this;
         lobbyKey = lobby;
         Debug.Log($"'{lobbyKey}'");
         var cleanedLobby = lobby.Trim().Replace("\u200B", "");
@@ -76,7 +80,6 @@ public class LobbyManager: MonoBehaviour
 
     private void onMessageReceived(string json)
     {
-        Debug.Log(json);
         WebSocketMessage baseMessage = JsonUtility.FromJson<WebSocketMessage>(json);
 
         switch (baseMessage.type)
@@ -84,7 +87,18 @@ public class LobbyManager: MonoBehaviour
             case "player_joined":
                 PlayerJoined playerJoined = JsonUtility.FromJson<PlayerJoined>(json);
                 Debug.Log($"{playerJoined.username} joined the lobby");
+                players.Add(playerJoined.username);
+                EventManagers.player.dispatchEvent(it => it.onPlayerJoin(playerJoined.username));
+                break;
+            
+            case "player_left":
+                PlayerLeft playerLeft = JsonUtility.FromJson<PlayerLeft>(json);
+                Debug.Log($"{playerLeft.username} left the lobby");
+                players.Remove(playerLeft.username);
+                EventManagers.player.dispatchEvent(it => it.onPlayerLeft(playerLeft.username));
                 break;
         }
     }
+
+    public static string getKey() => instance.lobbyKey;
 }

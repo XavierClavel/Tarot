@@ -7,3 +7,8 @@ public class WebSocketMessage {
 public class PlayerJoined : WebSocketMessage {
     public string username;
 }
+
+[System.Serializable]
+public class PlayerLeft : WebSocketMessage {
+    public string username;
+}
