@@ -74,7 +74,7 @@ fun Application.module() {
 
                         when (message) {
                             is PlayerJoined -> TODO()
-                            is PlayerLeft -> TODO()
+                            is PlayerLeft -> lobby.broadcast(message)
                             is BidMade -> TODO()
                             is CardPlayed -> TODO()
                             is DogMade -> TODO()

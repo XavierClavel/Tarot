@@ -13,4 +13,10 @@ public class PlayerJoined : WebSocketMessage {
 [System.Serializable]
 public class PlayerLeft : WebSocketMessage {
     public string username;
+
+    public PlayerLeft(string username)
+    {
+        this.type = "player_left";
+        this.username = username;
+    }
 }

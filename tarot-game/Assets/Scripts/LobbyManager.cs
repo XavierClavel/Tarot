@@ -4,22 +4,25 @@ using System.Linq;
 using System.Web;
 using NativeWebSocket;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager: MonoBehaviour
 {
     private static LobbyManager instance = null;
     private WebSocket websocket = null;
     private string lobbyKey = "";
+    private string username = "";
     private List<string> players = new List<string>(); 
   
     // Start is called before the first frame update
     public async void join(string lobby, string username)
     {
         instance = this;
-        lobbyKey = lobby;
         Debug.Log($"'{lobbyKey}'");
         var cleanedLobby = lobby.Trim().Replace("\u200B", "");
         var cleanedUsername = username.Trim().Replace("\u200B", "");
+        lobbyKey = cleanedLobby;
+        this.username = cleanedUsername;
         var url = $"ws://{Vault.url}/lobby/{cleanedLobby}/{cleanedUsername}";
         Debug.Log($"'{url}'");
       
@@ -62,16 +65,10 @@ public class LobbyManager: MonoBehaviour
       #endif
     }
   
-    async void SendWebSocketMessage()
+    public static async void sendWebSocketMessage(WebSocketMessage message)
     {
-        if (websocket.State == WebSocketState.Open)
-        {
-          // Sending bytes
-          //await websocket.Send(new byte[] { 10, 20, 30 });
-    
-          // Sending plain text
-          await websocket.SendText("plain text message");
-        }
+        if (instance.websocket.State != WebSocketState.Open) return;
+        await instance.websocket.SendText(JsonUtility.ToJson(message));
     }
   
     private async void OnApplicationQuit()
@@ -97,9 +94,15 @@ public class LobbyManager: MonoBehaviour
                 Debug.Log($"{playerLeft.username} left the lobby");
                 players.Remove(playerLeft.username);
                 EventManagers.player.dispatchEvent(it => it.onPlayerLeft(playerLeft.username));
+                if (playerLeft.username == username)
+                {
+                    SceneManager.LoadScene(Vault.scene.TitleScreen);
+                    Destroy(this);
+                }
                 break;
         }
     }
 
     public static string getKey() => instance.lobbyKey;
+    public static string getUsername() => instance.username;
 }
