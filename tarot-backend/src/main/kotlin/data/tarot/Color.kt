@@ -6,4 +6,5 @@ enum class Color {
     TREFLE,
     PIQUE,
     ATOUT,
+    EXCUSE,
 }

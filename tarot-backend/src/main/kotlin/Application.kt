@@ -74,10 +74,10 @@ fun Application.module() {
 
                         when (message) {
                             is PlayerJoined -> println("${message.username} joined the lobby.")
+                            is PlayerLeft -> println("${message.username} left the lobby.")
                             is BidMade -> TODO()
                             is CardPlayed -> TODO()
                             is DogMade -> TODO()
-                            is PlayerLeft -> TODO()
                             is PlayerTurn -> TODO()
                             is TurnWon -> TODO()
                         }
