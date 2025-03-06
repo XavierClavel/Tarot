@@ -3,6 +3,8 @@ package xclavel.services
 import org.koin.core.component.KoinComponent
 import xclavel.data.server.Lobby
 import xclavel.data.server.Player
+import xclavel.data.server.PlayerJoined
+import xclavel.data.server.PlayerLeft
 import xclavel.getRandomString
 import xclavel.utils.logger
 import java.util.concurrent.ConcurrentHashMap
@@ -12,13 +14,16 @@ class LobbyService: KoinComponent {
 
     fun getLobby(name: String): Lobby = lobbies[name] ?: throw Exception("Lobby '$name' not found!")
 
-    fun addPlayer(lobby: String, player: Player) {
-        getLobby(lobby).addPlayer(player)
+    suspend fun addPlayer(lobby: String, player: Player) {
+        val lobby = getLobby(lobby)
+        lobby.addPlayer(player)
+        lobby.broadcast(PlayerJoined(lobby.getPlayers()))
     }
 
-    fun removePlayer(lobbyKey: String, player: Player) {
+    suspend fun removePlayer(lobbyKey: String, player: Player) {
         val lobby = getLobby(lobbyKey)
         lobby.removePlayer(player.username)
+        lobby.broadcast(PlayerLeft(player.username))
         if (lobby.isEmpty()) {
             deleteLobby(lobbyKey)
         }

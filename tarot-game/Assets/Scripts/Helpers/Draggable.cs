@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    [SerializeField] protected Image image;
+    public Image image;
     public RectTransform rectTransform;
-    protected RectTransform slot;
+    [SerializeField] protected RectTransform slot;
     [HideInInspector] public DraggableHolder hoverDraggableHolder = null;
     [HideInInspector] public DraggableHolder selectedDraggableHolder = null;
     protected bool canBeDragged = true;
-    private RectTransform canvas;
+    protected RectTransform canvas;
     
     public void OnBeginDrag(PointerEventData data)
     {
@@ -31,7 +31,7 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void OnDrag(PointerEventData data)
     {
         if (!canBeDragged) return;
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward;
+        transform.position = Input.mousePosition + Vector3.forward;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -89,7 +89,7 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         if (!onDrop()) return;
         
-        rectTransform.DOMove(slot.position, 0.65f).SetEase(Ease.InOutQuad).OnComplete(delegate
+        rectTransform.DOMove(slot.position, 0.4f).SetEase(Ease.InOutQuad).OnComplete(delegate
         {
             if (selectedDraggableHolder != null)
             {

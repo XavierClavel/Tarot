@@ -11,6 +11,7 @@ import io.ktor.websocket.CloseReason
 import io.ktor.websocket.Frame
 import io.ktor.websocket.close
 import io.ktor.websocket.readText
+import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.serialization.json.Json
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.ktor.ext.inject
@@ -62,29 +63,33 @@ fun Application.module() {
 
             val lobby = lobbyService.getLobby(lobbyKey)
             val player = Player(username, this)
+            lobbyService.addPlayer(lobbyKey, player)
 
-            lobby.addPlayer(player)
-            lobby.broadcast(PlayerJoined(lobby.getPlayers()))
+            try {
+                for (frame in incoming) {
+                    if (frame is Frame.Text) {
+                        val text = frame.readText()
+                        try {
+                            val message = json.decodeFromString<WebSocketMessage>(text)
 
-            for (frame in incoming) {
-                if (frame is Frame.Text) {
-                    val text = frame.readText()
-                    try {
-                        val message = json.decodeFromString<WebSocketMessage>(text)
-
-                        when (message) {
-                            is PlayerJoined -> TODO()
-                            is PlayerLeft -> lobby.broadcast(message)
-                            is BidMade -> TODO()
-                            is CardPlayed -> TODO()
-                            is DogMade -> TODO()
-                            is PlayerTurn -> TODO()
-                            is TurnWon -> TODO()
+                            when (message) {
+                                is PlayerJoined -> TODO()
+                                is PlayerLeft -> lobby.broadcast(message)
+                                is BidMade -> TODO()
+                                is CardPlayed -> TODO()
+                                is DogMade -> TODO()
+                                is PlayerTurn -> TODO()
+                                is TurnWon -> TODO()
+                            }
+                        } catch (e: Exception) {
+                            println("Error decoding WebSocket message: $e")
                         }
-                    } catch (e: Exception) {
-                        println("Error decoding WebSocket message: $e")
                     }
                 }
+            } finally {
+                val reason = closeReason.await()
+                lobbyService.removePlayer(lobbyKey,player)
+                logger.info {"websocket closed by user $username for reason ${reason?.message}"}
             }
         }
     }

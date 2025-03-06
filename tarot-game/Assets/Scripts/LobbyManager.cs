@@ -70,10 +70,20 @@ public class LobbyManager: MonoBehaviour
         if (instance.websocket.State != WebSocketState.Open) return;
         await instance.websocket.SendText(JsonUtility.ToJson(message));
     }
-  
+
+    private void OnDestroy()
+    {
+        Debug.Log("destroyed");
+        if (websocket == null) return;
+        websocket.Close();
+        websocket = null;
+    }
+
     private async void OnApplicationQuit()
     {
-      await websocket.Close();
+        if (websocket == null) return;
+        websocket.Close();
+        websocket = null;
     }
 
     private void onMessageReceived(string json)

@@ -43,15 +43,7 @@ public class LobbyDisplay : MonoBehaviour, IPlayerListener
 
     public void onPlayerLeft(string username)
     {
-        Debug.Log($"Removing player display '{username}'");
-        var children = playerDisplayLayout.transform.getChildren();
-        foreach (var VARIABLE in children)
-        {
-            Debug.Log($"'{VARIABLE.name}'");
-            Debug.Log(VARIABLE.name == username);
-        }
         var toDelete = playerDisplayLayout.transform.getChildren().Find(it => it.name == username);
-        Debug.Log(toDelete);
         Destroy(toDelete);
     }
 }

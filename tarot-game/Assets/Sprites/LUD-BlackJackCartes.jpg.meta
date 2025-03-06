@@ -1,0 +1,1342 @@
+fileFormatVersion: 2
+guid: 9885cad394434ac4eb0402015e16dee5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6832319617162113566
+    second: LUD-BlackJackCartes_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6695aa209171ab54a8eaff57cc45ad89
+      internalID: 164283009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44221668351373544ab072b38f9332a7
+      internalID: -1997923541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_2
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 376ee8737aa581b449ef8479beedcc04
+      internalID: -69048129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_3
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feec8e76c6e3ec646a12eb72a625db61
+      internalID: 1312782219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_4
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae028d6ad2bb746459b152b8256fba83
+      internalID: -1140244532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_5
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c1e5866da459b04bb80421020254ad5
+      internalID: -571772664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_6
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4e3800425019e44d98a4ed6d0c5c2c0
+      internalID: 673658137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_7
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ce3033f9fc25c47811ee5367466768
+      internalID: 1454873030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_8
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92c5ee2c34498834783b344ab606dc85
+      internalID: 40194926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_9
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54c69b557b9889043a534815d9521f68
+      internalID: -1886449180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_10
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9ab9905ea593be4d946756a2f3cb429
+      internalID: -66289309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_11
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c8b0786c3530a4b8956fb113104989
+      internalID: -214731898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_12
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 250
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 743665de162b8874dacdbc65838f639a
+      internalID: 1788859051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_13
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a676fa673c1dc45bfdd5109f445577
+      internalID: 1551333651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_14
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15d1cbc84e4bdae4fa505c7f7faf74c9
+      internalID: -2130401931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_15
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15e63b5967da915429ea09c6d70f1f86
+      internalID: -1973296092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_16
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eafc4223f58e0324eb97fbf254c8aa35
+      internalID: 588990346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_17
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 712ba55b9e0593548a19e84ba01241c2
+      internalID: 2142923840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_18
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f572fb232212f40ac3ad74f12d05d1
+      internalID: 795768973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_19
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2f6f4d242ed3a4da0bbc1309ef87db
+      internalID: -1042309253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_20
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144500663056fa44882fe46209dae59d
+      internalID: -373344650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_21
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd3a63a4f7b4fd46b2352bc32897abd
+      internalID: 1629225876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_22
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dd9fb6e4f325244d991c67c69db2fd3
+      internalID: 437089824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_23
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 644a85a6696564341ac86fbe15f8d8d7
+      internalID: -1680015596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_24
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c147363f1132049a6a2e9feecba270
+      internalID: 973645885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_25
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 173
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c99c154ae71f2cd4d949389ea0cde169
+      internalID: 1326864385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_26
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 849d69c9c97212d479ff67081a32c50d
+      internalID: 1603945654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_27
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99a92f03aea878845bf6da36a9c9ad74
+      internalID: -1537953212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_28
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5d0ba2fc3e19a14f8fa7cba85f05a02
+      internalID: 971873392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_29
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 389f616c0268ca345898d1da98426968
+      internalID: -1356285361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_30
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379b4186b687b7841af058f432fb149a
+      internalID: 1911550058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_31
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c373720eeed7e2840b12cfb70d079f85
+      internalID: -1170268270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_32
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a866f105da997349ab0ef10d96ba63a
+      internalID: 713738185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_33
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfe8cb459b5972a46b22328121245ada
+      internalID: 2106998409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_34
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a8e8e1d06c9d99409075a477d446e8c
+      internalID: -1577059526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_35
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56ebb2919f7ed34aa264adb3cc86e27
+      internalID: 461436719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_36
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59bb3395466689943bf6eecd4d2c697a
+      internalID: -959939570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_37
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db11fef510a63db47af65a573f70ea4b
+      internalID: -390752416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_38
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 96
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e93cacdd9a31b8b4081a80d278aa1e7f
+      internalID: 22076800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_39
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fe0d8ae125b5834ea1c9fa737899f08
+      internalID: 629715004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_40
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b6e9422b0366bd4abebaf7f7c466144
+      internalID: 1837362760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_41
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e59d38089542c1f4d9e8abf5245ee565
+      internalID: 508767988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_42
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b401aeafee1b931469b16a7582cfe954
+      internalID: -1606884265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_43
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0c2a3a06bafa7a458a08304b6b0eb32
+      internalID: -1186126806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_44
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6037308e9035bfa46836fdf9e865b9cc
+      internalID: -145164297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_45
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5288c66a6116b904db823e38466da484
+      internalID: 1299985882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_46
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab34a4810682a0f428f314f5e619c1a2
+      internalID: 601063206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_47
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba11fcb540790d47a8271c6b7ccc132
+      internalID: 639517320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_48
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0065f2874fe7b7439963e6e742da8a6
+      internalID: 2028552124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_49
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6081b6013a3c9a47afa3c3516f0a827
+      internalID: -35231539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_50
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94d16f221b8d94245844ddc5e487721f
+      internalID: 1824443827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LUD-BlackJackCartes_51
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 19
+        width: 43
+        height: 65
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d843119cab09704b971d519d86471ed
+      internalID: -1326262185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b11c803718db59a42b832e41972ba8f1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LUD-BlackJackCartes_0: 164283009
+      LUD-BlackJackCartes_1: -1997923541
+      LUD-BlackJackCartes_10: -66289309
+      LUD-BlackJackCartes_11: -214731898
+      LUD-BlackJackCartes_12: 1788859051
+      LUD-BlackJackCartes_13: 1551333651
+      LUD-BlackJackCartes_14: -2130401931
+      LUD-BlackJackCartes_15: -1973296092
+      LUD-BlackJackCartes_16: 588990346
+      LUD-BlackJackCartes_17: 2142923840
+      LUD-BlackJackCartes_18: 795768973
+      LUD-BlackJackCartes_19: -1042309253
+      LUD-BlackJackCartes_2: -69048129
+      LUD-BlackJackCartes_20: -373344650
+      LUD-BlackJackCartes_21: 1629225876
+      LUD-BlackJackCartes_22: 437089824
+      LUD-BlackJackCartes_23: -1680015596
+      LUD-BlackJackCartes_24: 973645885
+      LUD-BlackJackCartes_25: 1326864385
+      LUD-BlackJackCartes_26: 1603945654
+      LUD-BlackJackCartes_27: -1537953212
+      LUD-BlackJackCartes_28: 971873392
+      LUD-BlackJackCartes_29: -1356285361
+      LUD-BlackJackCartes_3: 1312782219
+      LUD-BlackJackCartes_30: 1911550058
+      LUD-BlackJackCartes_31: -1170268270
+      LUD-BlackJackCartes_32: 713738185
+      LUD-BlackJackCartes_33: 2106998409
+      LUD-BlackJackCartes_34: -1577059526
+      LUD-BlackJackCartes_35: 461436719
+      LUD-BlackJackCartes_36: -959939570
+      LUD-BlackJackCartes_37: -390752416
+      LUD-BlackJackCartes_38: 22076800
+      LUD-BlackJackCartes_39: 629715004
+      LUD-BlackJackCartes_4: -1140244532
+      LUD-BlackJackCartes_40: 1837362760
+      LUD-BlackJackCartes_41: 508767988
+      LUD-BlackJackCartes_42: -1606884265
+      LUD-BlackJackCartes_43: -1186126806
+      LUD-BlackJackCartes_44: -145164297
+      LUD-BlackJackCartes_45: 1299985882
+      LUD-BlackJackCartes_46: 601063206
+      LUD-BlackJackCartes_47: 639517320
+      LUD-BlackJackCartes_48: 2028552124
+      LUD-BlackJackCartes_49: -35231539
+      LUD-BlackJackCartes_5: -571772664
+      LUD-BlackJackCartes_50: 1824443827
+      LUD-BlackJackCartes_51: -1326262185
+      LUD-BlackJackCartes_6: 673658137
+      LUD-BlackJackCartes_7: 1454873030
+      LUD-BlackJackCartes_8: 40194926
+      LUD-BlackJackCartes_9: -1886449180
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
