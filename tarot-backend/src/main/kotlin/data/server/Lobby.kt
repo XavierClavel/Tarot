@@ -20,6 +20,9 @@ class Lobby(val key: String) {
         players.remove(username)
     }
 
+    suspend fun unicast(player: Player, message: WebSocketMessage) {
+        player.session.sendMessage(message)
+    }
 
     suspend fun broadcast(message: WebSocketMessage) {
         players.values.forEach { it.session.sendMessage(message) }
@@ -31,4 +34,12 @@ class Lobby(val key: String) {
     }
 
     fun isEmpty(): Boolean = players.isEmpty()
+
+    suspend fun setupGame() {
+        broadcast(StartGame(""))
+    }
+
+    suspend fun getHand(player: Player) {
+        unicast(player, HandDealt(listOf(5,6,7,16,42)))
+    }
 }

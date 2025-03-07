@@ -20,3 +20,40 @@ public class PlayerLeft : WebSocketMessage {
         this.username = username;
     }
 }
+
+[System.Serializable]
+public class CardPlayed : WebSocketMessage {
+    public int card;
+
+    public CardPlayed(int card)
+    {
+        this.type = "card_played";
+        this.card = card;
+    }
+}
+
+[System.Serializable]
+public class HandDealt : WebSocketMessage
+{
+    public List<int> cards;
+}
+
+[System.Serializable]
+public class StartGame : WebSocketMessage
+{
+    public string parameters = "";
+
+    public StartGame()
+    {
+        this.type = "start_game";
+    }
+}
+
+[System.Serializable]
+public class GameReady : WebSocketMessage
+{
+    public GameReady()
+    {
+        this.type = "game_ready";
+    }
+}

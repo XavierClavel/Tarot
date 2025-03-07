@@ -110,6 +110,15 @@ public class LobbyManager: MonoBehaviour
                     Destroy(this);
                 }
                 break;
+            
+            case "start_game":
+                SceneManager.LoadScene(Vault.scene.Game);
+                break;
+            
+            case "hand_dealt":
+                HandDealt handDealt = JsonUtility.FromJson<HandDealt>(json);
+                EventManagers.game.dispatchEvent(it => it.onHandReceived(handDealt.cards));
+                break;
         }
     }
 

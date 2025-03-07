@@ -21,10 +21,13 @@ import xclavel.config.configureSockets
 import xclavel.data.server.BidMade
 import xclavel.data.server.CardPlayed
 import xclavel.data.server.DogMade
+import xclavel.data.server.GameReady
+import xclavel.data.server.HandDealt
 import xclavel.data.server.Player
 import xclavel.data.server.PlayerJoined
 import xclavel.data.server.PlayerLeft
 import xclavel.data.server.PlayerTurn
+import xclavel.data.server.StartGame
 import xclavel.data.server.TurnWon
 import xclavel.data.server.WebSocketMessage
 import xclavel.services.LobbyService
@@ -80,6 +83,9 @@ fun Application.module() {
                                 is DogMade -> TODO()
                                 is PlayerTurn -> TODO()
                                 is TurnWon -> TODO()
+                                is StartGame -> lobby.setupGame()
+                                is GameReady -> lobby.getHand(player)
+                                is HandDealt -> TODO()
                             }
                         } catch (e: Exception) {
                             println("Error decoding WebSocket message: $e")

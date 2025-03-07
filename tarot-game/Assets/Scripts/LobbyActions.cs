@@ -6,4 +6,9 @@ public class LobbyActions : MonoBehaviour
     {
         LobbyManager.sendWebSocketMessage(new PlayerLeft(LobbyManager.getUsername()));
     }
+
+    public void startGame()
+    {
+        LobbyManager.sendWebSocketMessage(new StartGame());
+    }
 }

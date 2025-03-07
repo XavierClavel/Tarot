@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hand: MonoBehaviour
+public class Hand: MonoBehaviour, IGameListener
 {
     [SerializeField] private TarotCard cardPrefab;
     [SerializeField] private RectTransform slotPrefab;
@@ -25,7 +25,6 @@ public class Hand: MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             var index =  i - (float)(amount-1) / 2;
-            Debug.Log(index);
             var slot = Instantiate(slotPrefab, rectTransform);
             slot.position += deltaX * index * Vector3.right;
             slot.position += 5 * Mathf.Pow(Mathf.Abs(index)/3.3f, 2) * Vector3.down;
@@ -37,5 +36,30 @@ public class Hand: MonoBehaviour
             card.setup(rectTransform, slot);
             card.image.sprite = sprites.getRandom();
         }
+    }
+
+    public void onHandReceived(List<int> cards)
+    {
+        generateCards(cards.Count);
+    }
+
+    public void onCardPlayedByOther(int card)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onCardPlayedByMe(int card)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onPlayerTurn(string username)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onTurnWon(string username)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -24,5 +24,6 @@ public static class Vault
     {
         public const string Lobby = "Lobby";
         public const string TitleScreen = "TitleScreen";
+        public const string Game = "Game";
     }
 }
