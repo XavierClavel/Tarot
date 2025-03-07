@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 7947109589325213870, guid: 969c35c5fddcf05439affbebcd50b883, type: 3}
   slotPrefab: {fileID: 8242761717089368275, guid: 2e07212562904c84685f15b7fe208011, type: 3}
+  tarotSprites: {fileID: 11400000, guid: d353051047d47ce42bc4666278129d5c, type: 2}
   sprites:
   - {fileID: 164283009, guid: 9885cad394434ac4eb0402015e16dee5, type: 3}
   - {fileID: -1997923541, guid: 9885cad394434ac4eb0402015e16dee5, type: 3}

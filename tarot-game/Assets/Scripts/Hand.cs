@@ -1,12 +1,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hand: MonoBehaviour, IGameListener
 {
     [SerializeField] private TarotCard cardPrefab;
     [SerializeField] private RectTransform slotPrefab;
+    [SerializeField] private TarotSprites tarotSprites;
     [SerializeField] private List<Sprite> sprites;
     private List<TarotCard> cards = new List<TarotCard>();
     private List<Transform> slots = new List<Transform>();
@@ -15,11 +17,17 @@ public class Hand: MonoBehaviour, IGameListener
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        generateCards(16);
+        EventManagers.game.registerListener(this);
     }
 
-    private void generateCards(int amount)
+    private void OnDestroy()
     {
+        EventManagers.game.unregisterListener(this);
+    }
+
+    private void generateCards(List<int> hand)
+    {
+        int amount = hand.Count;
         float deltaRotation = 5 * (1 - (float)amount / 50);
         float deltaX = 50 * (1 - (float)amount / 50);
         for (int i = 0; i < amount; i++)
@@ -32,15 +40,16 @@ public class Hand: MonoBehaviour, IGameListener
             
             var card = Instantiate(cardPrefab, slot);
             card.transform.localPosition = Vector3.zero;
-            cards.Add(card);
             card.setup(rectTransform, slot);
-            card.image.sprite = sprites.getRandom();
+            card.setValue(hand[i]);
+            card.image.sprite = tarotSprites.getSprite(hand[i]);
+            cards.Add(card);
         }
     }
 
     public void onHandReceived(List<int> cards)
     {
-        generateCards(cards.Count);
+        generateCards(cards);
     }
 
     public void onCardPlayedByOther(int card)
