@@ -29,14 +29,14 @@ public class Card
                 this.value = index - 42;
                 break;
             
-            case <= 71:
+            case <= 77:
                 this.color = TarotColor.ATOUT;
                 this.value = index - 56;
                 break;
             
-            case 72:
+            case 78:
                 this.color = TarotColor.EXCUSE;
-                this.value = 72;
+                this.value = 78;
                 break;
         }
     }

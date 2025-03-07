@@ -17,8 +17,8 @@ data class Card(
                 in 15..28 -> Card(id, id - 14, Color.TREFLE)
                 in 29..42 -> Card(id, id - 28, Color.COEUR)
                 in 43..56 -> Card(id, id - 42, Color.PIQUE)
-                in 57..71 -> Card(id, id - 56, Color.ATOUT)
-                72 -> Card(id, -1, Color.EXCUSE)
+                in 57..77 -> Card(id, id - 56, Color.ATOUT)
+                78 -> Card(id, -1, Color.EXCUSE)
                 else -> throw Exception("Invalid card id")
             }
     }
@@ -52,4 +52,6 @@ data class Card(
     fun isCavalier() = value == 12
     fun isDame() = value == 13
     fun isRoi() = value == 14
+
+    fun isExcuse() = value == -1
 }

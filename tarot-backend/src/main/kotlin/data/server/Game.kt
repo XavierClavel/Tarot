@@ -3,31 +3,46 @@ package xclavel.data.server
 import org.koin.java.KoinJavaComponent.inject
 import xclavel.InvalidAction
 import xclavel.data.tarot.Card
+import xclavel.data.tarot.CardsDealing
 import xclavel.data.tarot.Color
 import xclavel.services.services.TarotService
+import xclavel.utils.logger
 
-class Game(val lobby: Lobby, val calledKing: Color) {
+class Game(val lobby: Lobby) {
     val tarotService by inject<TarotService>(TarotService::class.java)
-    val hands = HashMap<Player, MutableSet<Card>>()
+    val hands = HashMap<Player, MutableList<Card>>()
     val points = HashMap<Player, MutableSet<Card>>()
     val currentLevee = mutableListOf<Card>()
+    var calledKing: Color? = null
     var currentPlayer: Player? = null
     var playersOrder = mutableListOf<Player>()
     var turn = 1
+    var cardsDealing: CardsDealing? = null
 
-    suspend fun playCard(player: Player, card: Card) {
+    fun dealCards() {
+        lobby.deck.cut()
+        logger.info {lobby.players}
+        cardsDealing = lobby.deck.deal(lobby.players.values.toList())
+        logger.info {cardsDealing}
+        cardsDealing!!.hands.forEach { hand ->
+            hands.put(hand.key, hand.value.map { Card.fromId(it) }.toMutableList())
+        }
+    }
+
+    suspend fun playCard(player: Player, cardIndex: Int) {
+        val card = Card.fromId(cardIndex)
         if (player != currentPlayer) {
             throw InvalidAction("Not your turn")
         }
-        if (card.owner != currentPlayer) {
+        if (!cardsDealing!!.hands[player]!!.contains(cardIndex)) {
             throw InvalidAction("Not your card")
         }
-        if (!hands[player]!!.contains(card)) {
+        if (!hands[player]!!.any { it.id == cardIndex }) {
             throw InvalidAction("Card already used")
         }
         checkActionValidity(card)
         currentLevee.add(card)
-        hands[player]!!.remove(card)
+        hands[player]!!.removeIf{ it.id == cardIndex}
         if (isRoundComplete()) {
             val bestCard = tarotService.findBestCard(currentLevee)
             lobby.broadcast(PlayerTurn(bestCard.owner!!.username))

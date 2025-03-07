@@ -3,10 +3,14 @@ package xclavel.data.server
 import kotlinx.serialization.json.Json
 import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSocketSession
+import xclavel.data.tarot.Deck
+import xclavel.utils.logger
 import java.util.concurrent.ConcurrentHashMap
 
 class Lobby(val key: String) {
-    private val players = ConcurrentHashMap<String, Player>()
+    val players = ConcurrentHashMap<String, Player>()
+    private var game: Game? = null
+    val deck = Deck()
 
     val json = Json { classDiscriminator = "type" }
 
@@ -36,10 +40,14 @@ class Lobby(val key: String) {
     fun isEmpty(): Boolean = players.isEmpty()
 
     suspend fun setupGame() {
+        game = Game(this)
+        game!!.dealCards()
         broadcast(StartGame(""))
     }
 
     suspend fun getHand(player: Player) {
-        unicast(player, HandDealt(listOf(5,6,7,16,42)))
+        logger.info {"${player.username} is ready"}
+        logger.info {"Sending hand ${game!!.cardsDealing!!.hands[player]}"}
+        unicast(player, HandDealt(game!!.cardsDealing!!.hands[player]!!.toList()))
     }
 }

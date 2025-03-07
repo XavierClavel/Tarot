@@ -100,3 +100,11 @@ fun Application.module() {
         }
     }
 }
+
+//TODO: petit sec
+//TODO: afficher atouts dans le chien
+//TODO: chelem
+//TODO: poignées
+//TODO: petit au bout
+//TODO: enchères
+//TODO: 2 players mode

@@ -8,6 +8,7 @@ public class TarotManager: MonoBehaviour, IGameListener
     {
         EventManagers.game.registerListener(this);
         LobbyManager.sendWebSocketMessage(new GameReady());
+        Debug.Log("Sent 'ready' event");
     }
 
     private void OnDestroy()
@@ -17,6 +18,7 @@ public class TarotManager: MonoBehaviour, IGameListener
 
     public void onHandReceived(List<int> cards)
     {
+        Debug.Log($"Received {cards.Count} cards.");
         foreach (var card in cards)
         {
             Debug.Log(card);
