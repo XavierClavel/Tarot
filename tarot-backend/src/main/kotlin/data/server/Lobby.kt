@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSocketSession
 import xclavel.data.tarot.Deck
+import xclavel.data.tarot.data.tarot.Bid
 import xclavel.utils.logger
 import java.util.concurrent.ConcurrentHashMap
 
@@ -49,5 +50,10 @@ class Lobby(val key: String) {
         logger.info {"${player.username} is ready"}
         logger.info {"Sending hand ${game!!.cardsDealing!!.hands[player]}"}
         unicast(player, HandDealt(game!!.cardsDealing!!.hands[player]!!.toList()))
+        game!!.declarePlayerReady(player)
+    }
+
+    suspend fun receiveBid(player: Player, bid: Bid) {
+        game!!.receiveBid(player, bid)
     }
 }

@@ -13,6 +13,9 @@ public class LobbyManager: MonoBehaviour
     private string lobbyKey = "";
     private string username = "";
     private List<string> players = new List<string>(); 
+    private string currentPlayerTurn = "";
+
+    public static List<string> getPlayers() => instance.players;
   
     // Start is called before the first frame update
     public async void join(string lobby, string username)
@@ -95,10 +98,10 @@ public class LobbyManager: MonoBehaviour
             case "player_joined":
                 PlayerJoined playerJoined = JsonUtility.FromJson<PlayerJoined>(json);
                 Debug.Log($"{playerJoined.users.Last()} joined the lobby");
-                players.Add(playerJoined.users.Last());
+                players = playerJoined.users;
                 EventManagers.player.dispatchEvent(it => it.onPlayerJoin(playerJoined.users));
                 break;
-            
+
             case "player_left":
                 PlayerLeft playerLeft = JsonUtility.FromJson<PlayerLeft>(json);
                 Debug.Log($"{playerLeft.username} left the lobby");
@@ -110,14 +113,32 @@ public class LobbyManager: MonoBehaviour
                     Destroy(this);
                 }
                 break;
-            
+
             case "start_game":
                 SceneManager.LoadScene(Vault.scene.Game);
                 break;
-            
+
             case "hand_dealt":
                 HandDealt handDealt = JsonUtility.FromJson<HandDealt>(json);
                 EventManagers.game.dispatchEvent(it => it.onHandReceived(handDealt.cards));
+                break;
+
+            case "player_turn":
+                PlayerTurn playerTurn = JsonUtility.FromJson<PlayerTurn>(json);
+                Debug.Log($"Player turn: {playerTurn.username}");
+                EventManagers.turn.dispatchEvent(it => it.onPlayerTurn(playerTurn.username));
+                if (currentPlayerTurn == username) {
+                    EventManagers.turn.dispatchEvent(it => it.onMyTurnEnd());
+                } else if (playerTurn.username == username) {
+                    EventManagers.turn.dispatchEvent(it => it.onMyTurnStart());
+                }
+                currentPlayerTurn = playerTurn.username;
+                break;
+            
+            case "bid_made":
+                BidMade bidMade = JsonUtility.FromJson<BidMade>(json);
+                Debug.Log(bidMade.bid);
+                EventManagers.bid.dispatchEvent(it => it.onBidMade(currentPlayerTurn, Enum.Parse<Bid>(bidMade.bid)));
                 break;
         }
     }

@@ -7,6 +7,10 @@ public class TarotManager: MonoBehaviour, IGameListener
     private void Awake()
     {
         EventManagers.game.registerListener(this);
+    }
+
+    private void Start()
+    {
         LobbyManager.sendWebSocketMessage(new GameReady());
         Debug.Log("Sent 'ready' event");
     }

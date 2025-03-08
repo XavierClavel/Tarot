@@ -1,6 +1,6 @@
-package xclavel.data.tarot.data.tarot
 
-enum class Bid() {
+public enum Bid
+{
     PASSE,
     PETITE,
     GARDE,

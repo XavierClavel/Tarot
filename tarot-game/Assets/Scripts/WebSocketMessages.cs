@@ -57,3 +57,21 @@ public class GameReady : WebSocketMessage
         this.type = "game_ready";
     }
 }
+
+[System.Serializable]
+public class PlayerTurn : WebSocketMessage
+{
+    public string username;
+}
+
+[System.Serializable]
+public class BidMade : WebSocketMessage
+{
+    public string bid;
+
+    public BidMade(Bid bid)
+    {
+        this.type = "bid_made";
+        this.bid = bid.ToString();
+    }
+}

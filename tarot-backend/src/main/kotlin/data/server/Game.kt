@@ -5,6 +5,7 @@ import xclavel.InvalidAction
 import xclavel.data.tarot.Card
 import xclavel.data.tarot.CardsDealing
 import xclavel.data.tarot.Color
+import xclavel.data.tarot.data.tarot.Bid
 import xclavel.services.services.TarotService
 import xclavel.utils.logger
 
@@ -12,12 +13,48 @@ class Game(val lobby: Lobby) {
     val tarotService by inject<TarotService>(TarotService::class.java)
     val hands = HashMap<Player, MutableList<Card>>()
     val points = HashMap<Player, MutableSet<Card>>()
+    val bids = HashMap<Player, Bid>()
     val currentLevee = mutableListOf<Card>()
     var calledKing: Color? = null
     var currentPlayer: Player? = null
     var playersOrder = mutableListOf<Player>()
     var turn = 1
     var cardsDealing: CardsDealing? = null
+    val playersReady = mutableSetOf<Player>()
+
+    suspend fun declarePlayerReady(player: Player) {
+        playersReady.add(player)
+        if (playersReady.size !=lobby.players.size ) return
+        playersOrder = lobby.players.values.toMutableList()
+        currentPlayer = playersOrder[0]
+        lobby.broadcast(PlayerTurn(currentPlayer!!.username))
+    }
+
+
+    suspend fun receiveBid(player: Player, bid: Bid) {
+        logger.info {"Received bid $bid for player ${player.username}"}
+        if (bids.containsKey(player)) throw InvalidAction("Player has already made a bid")
+        if (player != currentPlayer) throw InvalidAction("Not your turn")
+        if (!isBidValid(bid)) throw InvalidAction("Invalid bid")
+        bids[player] = bid;
+        lobby.broadcast(BidMade(bid))
+        if (bids.size == lobby.players.size) {
+            logger.info {"Bids over"}
+            if (bids.values.all { it == Bid.PASSE }) { //fausse donne
+                logger.info { "fausse donne" }
+            } else {
+                val highestBidder = bids.maxBy { it.value.ordinal }.key
+                logger.info {"Bid won by ${highestBidder.username} with ${bids[highestBidder]}"}
+            }
+        } else {
+            switchToNextPlayer()
+        }
+    }
+
+    fun isBidValid(bid: Bid): Boolean {
+        return if (bid == Bid.PASSE) true
+        else bids.values.none { it.ordinal >= bid.ordinal }
+    }
 
     fun dealCards() {
         lobby.deck.cut()
@@ -48,8 +85,7 @@ class Game(val lobby: Lobby) {
             lobby.broadcast(PlayerTurn(bestCard.owner!!.username))
             winTurn(bestCard.owner!!)
         } else {
-            getNextPlayer()
-            lobby.broadcast(PlayerTurn(player.username))
+            switchToNextPlayer()
         }
 
     }
@@ -65,13 +101,14 @@ class Game(val lobby: Lobby) {
 
     private fun isRoundComplete(): Boolean = currentLevee.size == playersOrder.size
 
-    private fun getNextPlayer(): Player {
+    private suspend fun switchToNextPlayer() {
         val playerIndex = playersOrder.indexOf(currentPlayer)
-        return if (playerIndex == playersOrder.size - 1) {
+        currentPlayer = if (playerIndex == playersOrder.size - 1) {
             playersOrder[0]
         } else {
             playersOrder[playerIndex + 1]
         }
+        lobby.broadcast(PlayerTurn(currentPlayer!!.username))
     }
 
     private fun checkActionValidity(card: Card) {
