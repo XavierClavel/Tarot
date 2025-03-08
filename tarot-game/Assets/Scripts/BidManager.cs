@@ -12,6 +12,8 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
     [SerializeField] private Transform makeBidsPanel;
     [SerializeField] private List<Button> bids;
     private Dictionary<string, PlayerBid> playerBidsDisplay = new Dictionary<string, PlayerBid>();
+    private int bidsReceived = 0;
+    
     private void Awake()
     {
         EventManagers.bid.registerListener(this);
@@ -46,6 +48,12 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
        {
            bids[i].interactable = false;
            Debug.Log($"Deactivated {i}");
+       }
+
+       bidsReceived++;
+       if (bidsReceived == LobbyManager.getPlayers().Count)
+       {
+           Destroy(this);
        }
     }
 

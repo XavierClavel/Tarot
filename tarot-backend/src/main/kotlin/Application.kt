@@ -86,6 +86,7 @@ fun Application.module() {
                                 is StartGame -> lobby.setupGame()
                                 is GameReady -> lobby.getHand(player)
                                 is HandDealt -> TODO()
+                                else -> throw InvalidAction("Unknow action")
                             }
                         } catch (e: Exception) {
                             println("Error decoding WebSocket message: $e")
@@ -106,5 +107,6 @@ fun Application.module() {
 //TODO: chelem
 //TODO: poignées
 //TODO: petit au bout
-//TODO: enchères
+//TODO: fausse donne
+//TODO: appel au roi
 //TODO: 2 players mode

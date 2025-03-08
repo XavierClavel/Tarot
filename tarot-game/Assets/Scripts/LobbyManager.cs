@@ -44,6 +44,7 @@ public class LobbyManager: MonoBehaviour
         websocket.OnClose += (e) =>
         {
             Debug.Log("Connection closed!");
+            SceneManager.LoadScene(Vault.scene.TitleScreen);
         };
     
         websocket.OnMessage += (bytes) =>
@@ -139,6 +140,12 @@ public class LobbyManager: MonoBehaviour
                 BidMade bidMade = JsonUtility.FromJson<BidMade>(json);
                 Debug.Log(bidMade.bid);
                 EventManagers.bid.dispatchEvent(it => it.onBidMade(currentPlayerTurn, Enum.Parse<Bid>(bidMade.bid)));
+                break;
+            
+            case "first_turn":
+                FirstTurn firstTurn = JsonUtility.FromJson<FirstTurn>(json);
+                Debug.Log("first turn");
+                EventManagers.game.dispatchEvent(it => it.onFirstTurn(firstTurn.username));
                 break;
         }
     }

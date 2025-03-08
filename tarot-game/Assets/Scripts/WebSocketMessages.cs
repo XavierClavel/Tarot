@@ -75,3 +75,9 @@ public class BidMade : WebSocketMessage
         this.bid = bid.ToString();
     }
 }
+
+[System.Serializable]
+public class FirstTurn : WebSocketMessage
+{
+    public string username;
+}

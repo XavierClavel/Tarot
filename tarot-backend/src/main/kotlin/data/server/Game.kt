@@ -1,5 +1,6 @@
 package xclavel.data.server
 
+import kotlinx.coroutines.delay
 import org.koin.java.KoinJavaComponent.inject
 import xclavel.InvalidAction
 import xclavel.data.tarot.Card
@@ -44,7 +45,11 @@ class Game(val lobby: Lobby) {
                 logger.info { "fausse donne" }
             } else {
                 val highestBidder = bids.maxBy { it.value.ordinal }.key
+                lobby.broadcast(BidResult(highestBidder.username, bids[highestBidder]!!))
                 logger.info {"Bid won by ${highestBidder.username} with ${bids[highestBidder]}"}
+                delay(3000L)
+                currentPlayer = highestBidder
+                lobby.broadcast(PlayerTurn(currentPlayer!!.username))
             }
         } else {
             switchToNextPlayer()
@@ -123,16 +128,16 @@ class Game(val lobby: Lobby) {
         }
 
         //Player is playing l'Excuse
-        if (card.value == -1) {
+        if (card.isExcuse()) {
             return
         }
 
         //First card is l'Excuse
-        if (currentLevee.size == 1 && currentLevee[0].value == -1) {
+        if (currentLevee.size == 1 && currentLevee[0].isExcuse()) {
             return
         }
 
-        val firstCard = if (currentLevee[0].value == -1) currentLevee[1] else currentLevee[0]
+        val firstCard = if (currentLevee[0].isExcuse()) currentLevee[1] else currentLevee[0]
 
         if (firstCard.color != card.color && hands[currentPlayer]!!.any { it.color == card.color }) {
             throw InvalidAction("Must play the same color as first card if possible")

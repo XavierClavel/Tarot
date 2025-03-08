@@ -53,3 +53,11 @@ class GameReady(): WebSocketMessage()
 @Serializable
 @SerialName("hand_dealt")
 data class HandDealt(val cards: List<Int>): WebSocketMessage()
+
+@Serializable
+@SerialName("bid_result")
+data class BidResult(val username: String, val bid: Bid): WebSocketMessage()
+
+@Serializable
+@SerialName("first_turn")
+data class FirstTurn(val username: String): WebSocketMessage()
