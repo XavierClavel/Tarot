@@ -79,7 +79,6 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
     public static bool canBePlayed(Card card)
     {
         List<Card> cardsInHand = Hand.getCards();
-        Debug.Log(card.color == instance.calledKing);
         
         if (instance.levee.isEmpty())
         {

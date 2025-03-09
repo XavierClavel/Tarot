@@ -130,7 +130,8 @@ public class LobbyManager: MonoBehaviour
                 EventManagers.turn.dispatchEvent(it => it.onPlayerTurn(playerTurn.username));
                 if (currentPlayerTurn == username) {
                     EventManagers.turn.dispatchEvent(it => it.onMyTurnEnd());
-                } else if (playerTurn.username == username) {
+                }
+                if (playerTurn.username == username) {
                     EventManagers.turn.dispatchEvent(it => it.onMyTurnStart());
                 }
                 currentPlayerTurn = playerTurn.username;
@@ -169,7 +170,8 @@ public class LobbyManager: MonoBehaviour
                 EventManagers.turn.dispatchEvent(it => it.onPlayerTurn(turnWon.username));
                 if (currentPlayerTurn == username) {
                     EventManagers.turn.dispatchEvent(it => it.onMyTurnEnd());
-                } else if (turnWon.username == username) {
+                }
+                if (turnWon.username == username) {
                     EventManagers.turn.dispatchEvent(it => it.onMyTurnStart());
                 }
                 currentPlayerTurn = turnWon.username;
