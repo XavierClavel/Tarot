@@ -9,6 +9,7 @@ public class Card
     public bool isCavalier() => value == 12;
     public bool isValet() => value == 11;
     public bool isExcuse() => value == -1;
+    public bool isRegularCard() => color != TarotColor.ATOUT && color != TarotColor.EXCUSE;
 
     public string toString()
     {

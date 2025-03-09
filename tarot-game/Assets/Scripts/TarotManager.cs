@@ -77,22 +77,24 @@ public class TarotManager: MonoBehaviour, IGameListener
         if (instance.levee.Count == 1 && firstCard.isExcuse()) return true;
 
         Card firstActiveCard = firstCard.isExcuse() ? instance.levee[1] : firstCard;
+
+        if (card.isRegularCard() && card.color == firstActiveCard.color) return true;
         
         //must play same color if possible
-        if (firstActiveCard.color != card.color && cardsInHand.none(it => it.color == firstActiveCard.color))
+        if (firstActiveCard.color != card.color && cardsInHand.Any(it => it.color == firstActiveCard.color))
         {
             return false;
         }
 
         if (card.color == TarotColor.ATOUT)
         {
-            int? bestAtout = instance.levee.filter(it => it.color == TarotColor.ATOUT).Max(it => it.value);
+            Card? bestAtout = instance.levee.filter(it => it.color == TarotColor.ATOUT).maxBy(it => it.value);
             if (bestAtout == null) return true;
-            if (card.value > bestAtout)
+            if (card.value > bestAtout.value)
             {
                 return true;
             }
-            return !cardsInHand.Any(it => it.color == TarotColor.ATOUT && it.value > bestAtout);
+            return !cardsInHand.Any(it => it.color == TarotColor.ATOUT && it.value > bestAtout.value);
         } 
         
         if (cardsInHand.Any(it => it.color == TarotColor.ATOUT))

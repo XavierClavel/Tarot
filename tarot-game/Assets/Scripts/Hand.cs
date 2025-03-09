@@ -95,7 +95,6 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
         }
         foreach (var card in cards)
         {
-            Debug.Log(TarotManager.canBePlayed(card.card));
             if (TarotManager.canBePlayed(card.card))
             {
                 card.enableDrag();

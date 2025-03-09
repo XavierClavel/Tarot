@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class Extensions
@@ -37,11 +38,12 @@ public static class Extensions
     
     public static List<T> removeIf<T>(this List<T> list, Predicate<T> predicate)
     {
+        List<T> filteredList = list.copy();
         list.ForEach(it =>
         {
-            if (predicate(it)) list.Remove(it);
+            if (predicate(it)) filteredList.Remove(it);
         });
-        return list;
+        return filteredList;
     }
     
     public static bool none<T>(this List<T> list, Predicate<T> predicate)
@@ -58,6 +60,29 @@ public static class Extensions
         }
         return newList;
     }
+    
+    public static T1? maxBy<T1, T2>(this List<T1> list, Func<T1, T2> selector) 
+        where T1 : class?  // Ensure nullable support for reference types
+        where T2 : IComparable<T2>  // Ensure comparability of selected values
+    {
+        if (list.Count == 0) return null; // Return null for empty list
+
+        T1 maxItem = list[0];
+        T2 maxValue = selector(maxItem);
+
+        foreach (var item in list.Skip(1)) // Skip first since we already took it
+        {
+            T2 value = selector(item);
+            if (value.CompareTo(maxValue) > 0) // Use CompareTo instead of >
+            {
+                maxItem = item;
+                maxValue = value;
+            }
+        }
+    
+        return maxItem;
+    }
+
     
     
     
@@ -504,7 +529,7 @@ public static class Extensions
     ///<summary>
     ///Returns a copy of the list.
     ///</summary>
-    public static List<T> Copy<T>(this List<T> list)
+    public static List<T> copy<T>(this List<T> list)
     {
         return list.ToArray().ToList();
 
@@ -515,8 +540,8 @@ public static class Extensions
     ///</summary>
     public static List<T> Union<T>(this List<T> list1, List<T> list2)
     {
-        if (list2 == null) return list1.Copy();
-        List<T> result = list1.Copy();
+        if (list2 == null) return list1.copy();
+        List<T> result = list1.copy();
         foreach (T item in list2)
         {
             if (!result.Contains(item))

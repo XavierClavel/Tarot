@@ -43,16 +43,21 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
     {
        playerBidsDisplay[username].setBid(bid);
        Debug.Log($"Bid received: {bid}");
-       if (bid == Bid.PASSE) return;
-       for (int i = 1; i <= (int)bid; i++)
+       if (bid != Bid.PASSE)
        {
-           bids[i].interactable = false;
-           Debug.Log($"Deactivated {i}");
+           for (int i = 1; i <= (int)bid; i++)
+           {
+               bids[i].interactable = false;
+               Debug.Log($"Deactivated {i}");
+           }
        }
 
        bidsReceived++;
+       Debug.Log($"{bidsReceived} bids received");
        if (bidsReceived == LobbyManager.getPlayers().Count)
        {
+           Debug.Log("Hiding bids");
+           playerBidsLayout.gameObject.SetActive(false);
            Destroy(this);
        }
     }

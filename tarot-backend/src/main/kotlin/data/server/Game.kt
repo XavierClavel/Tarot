@@ -141,6 +141,10 @@ class Game(val lobby: Lobby) {
 
         val firstCard = if (currentLevee[0].isExcuse()) currentLevee[1] else currentLevee[0]
 
+        if (card.isRegularCard() && card.color == firstCard.color) {
+            return
+        }
+
         if (firstCard.color != card.color && hands[currentPlayer]!!.any { it.color == card.color }) {
             throw InvalidAction("Must play the same color as first card if possible")
         }

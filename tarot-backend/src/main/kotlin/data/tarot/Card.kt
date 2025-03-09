@@ -54,4 +54,6 @@ data class Card(
     fun isRoi() = value == 14
 
     fun isExcuse() = value == -1
+
+    fun isRegularCard() = color != Color.ATOUT && color != Color.EXCUSE
 }
