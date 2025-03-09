@@ -23,7 +23,8 @@ class Game(val lobby: Lobby) {
     var cardsDealing: CardsDealing? = null
     val playersReady = mutableSetOf<Player>()
 
-    suspend fun declarePlayerReady(player: Player) {
+
+    suspend fun onPlayerReady(player: Player) {
         playersReady.add(player)
         if (playersReady.size !=lobby.players.size ) return
         playersOrder = lobby.players.values.toMutableList()
@@ -85,6 +86,7 @@ class Game(val lobby: Lobby) {
         checkActionValidity(card)
         currentLevee.add(card)
         hands[player]!!.removeIf{ it.id == cardIndex}
+        lobby.broadcast(CardPlayed(cardIndex))
         if (isRoundComplete()) {
             val bestCard = tarotService.findBestCard(currentLevee)
             lobby.broadcast(PlayerTurn(bestCard.owner!!.username))

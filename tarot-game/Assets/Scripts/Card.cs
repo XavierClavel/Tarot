@@ -3,6 +3,23 @@ public class Card
     public readonly int index;
     public readonly int value;
     public readonly TarotColor color;
+
+    public bool isRoi() => value == 14;
+    public bool isReine() => value == 13;
+    public bool isCavalier() => value == 12;
+    public bool isValet() => value == 11;
+    public bool isExcuse() => value == -1;
+
+    public string toString()
+    {
+        if (isExcuse()) return "Excuse";
+        if (color == TarotColor.ATOUT) return $"{value} d'atout";
+        if (isRoi()) return $"Roi de {color}";
+        if (isReine()) return $"Reine de {color}";
+        if (isCavalier()) return $"Cavalier de {color}";
+        if (isValet()) return $"Valet de {color}";
+        return $"{value} de {color}";
+    }
     
     public Card(int index)
     {
@@ -36,7 +53,7 @@ public class Card
             
             case 78:
                 this.color = TarotColor.EXCUSE;
-                this.value = 78;
+                this.value = -1;
                 break;
         }
     }

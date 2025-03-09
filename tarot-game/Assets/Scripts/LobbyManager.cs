@@ -142,6 +142,20 @@ public class LobbyManager: MonoBehaviour
                 EventManagers.bid.dispatchEvent(it => it.onBidMade(currentPlayerTurn, Enum.Parse<Bid>(bidMade.bid)));
                 break;
             
+            case "card_played":
+                CardPlayed cardPlayed = JsonUtility.FromJson<CardPlayed>(json);
+                Debug.Log($"{currentPlayerTurn} played {new Card(cardPlayed.card).toString()}");
+                if (currentPlayerTurn == username)
+                {
+                    EventManagers.game.dispatchEvent(it => it.onCardPlayedByMe(cardPlayed.card));
+                }
+                else
+                {
+                    EventManagers.game.dispatchEvent(it => it.onCardPlayedByOther(currentPlayerTurn, cardPlayed.card));
+                }
+                break;
+                
+            
             case "first_turn":
                 FirstTurn firstTurn = JsonUtility.FromJson<FirstTurn>(json);
                 Debug.Log("first turn");

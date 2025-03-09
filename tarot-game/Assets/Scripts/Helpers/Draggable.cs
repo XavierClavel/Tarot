@@ -13,6 +13,12 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
     [HideInInspector] public DraggableHolder selectedDraggableHolder = null;
     protected bool canBeDragged = true;
     protected RectTransform canvas;
+
+    public void disableDrag() => canBeDragged = false;
+    public void enableDrag() => canBeDragged = true;
+
+    public void darkenImage() => image.color = Color.grey;
+    public void whitenImage() => image.color = Color.white;
     
     public void OnBeginDrag(PointerEventData data)
     {

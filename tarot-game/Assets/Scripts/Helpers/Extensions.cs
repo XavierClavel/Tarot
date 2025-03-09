@@ -34,6 +34,20 @@ public static class Extensions
         });
         return filteredList;
     }
+    
+    public static List<T> removeIf<T>(this List<T> list, Predicate<T> predicate)
+    {
+        list.ForEach(it =>
+        {
+            if (predicate(it)) list.Remove(it);
+        });
+        return list;
+    }
+    
+    public static bool none<T>(this List<T> list, Predicate<T> predicate)
+    {
+        return !list.Any(it => predicate(it));
+    }
 
     public static List<T2> map<T1, T2>(this List<T1> list, Func<T1, T2> fun)
     {
@@ -44,6 +58,8 @@ public static class Extensions
         }
         return newList;
     }
+    
+    
     
     /**
      * Returns a tuple with :

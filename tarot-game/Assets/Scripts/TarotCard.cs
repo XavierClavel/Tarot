@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class TarotCard : Draggable
 {
     public static TarotCard draggedCard;
-    private Card card;
+    public Card card;
 
     public void setValue(int id)
     {

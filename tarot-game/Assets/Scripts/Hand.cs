@@ -4,25 +4,33 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Hand: MonoBehaviour, IGameListener
+public class Hand: MonoBehaviour, IGameListener, ITurnListener
 {
     [SerializeField] private TarotCard cardPrefab;
     [SerializeField] private RectTransform slotPrefab;
     [SerializeField] private TarotSprites tarotSprites;
     [SerializeField] private List<Sprite> sprites;
     private List<TarotCard> cards = new List<TarotCard>();
+    private List<Card> hand = new List<Card>();
     private List<Transform> slots = new List<Transform>();
     private RectTransform rectTransform;
+    private static Hand instance;
+    private bool isBiddingOver = false;
+
+    public static void onBiddingOver() => instance.isBiddingOver = true;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        instance = this;
         EventManagers.game.registerListener(this);
+        EventManagers.turn.registerListener(this);
     }
 
     private void OnDestroy()
     {
         EventManagers.game.unregisterListener(this);
+        EventManagers.turn.unregisterListener(this);
     }
 
     private void generateCards(List<int> hand)
@@ -42,6 +50,7 @@ public class Hand: MonoBehaviour, IGameListener
             card.transform.localPosition = Vector3.zero;
             card.setup(rectTransform, slot);
             card.setValue(hand[i]);
+            card.disableDrag();
             card.image.sprite = tarotSprites.getSprite(hand[i]);
             cards.Add(card);
         }
@@ -50,25 +59,64 @@ public class Hand: MonoBehaviour, IGameListener
     public void onHandReceived(List<int> cards)
     {
         generateCards(cards);
+        hand = cards.map(it => new Card(it));
     }
 
-    public void onCardPlayedByOther(int card)
+    public void onCardPlayedByOther(string username, int card)
     {
-        throw new NotImplementedException();
+        
     }
 
     public void onCardPlayedByMe(int card)
     {
-        throw new NotImplementedException();
-    }
-
-    public void onPlayerTurn(string username)
-    {
-        throw new NotImplementedException();
+        hand.removeIf(it => it.value == card);
     }
 
     public void onTurnWon(string username)
     {
         throw new NotImplementedException();
     }
+
+    public void onFirstTurn(string username)
+    {
+        
+    }
+
+    public void onPlayerTurn(string username)
+    {
+    }
+
+    public void onMyTurnStart()
+    {
+        if (!isBiddingOver)
+        {
+            isBiddingOver = true;
+            return;
+        }
+        foreach (var card in cards)
+        {
+            Debug.Log(TarotManager.canBePlayed(card.card));
+            if (TarotManager.canBePlayed(card.card))
+            {
+                card.enableDrag();
+                card.whitenImage();
+            }
+            else
+            {
+                card.disableDrag();
+                card.darkenImage();
+            }
+            
+        }
+    }
+
+    public void onMyTurnEnd()
+    {
+        foreach (var card in cards)
+        {
+            card.disableDrag();
+        }
+    }
+
+    public static List<Card> getCards() => instance.hand;
 }

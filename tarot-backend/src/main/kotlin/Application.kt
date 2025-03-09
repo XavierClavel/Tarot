@@ -79,7 +79,7 @@ fun Application.module() {
                                 is PlayerJoined -> TODO()
                                 is PlayerLeft -> lobby.broadcast(message)
                                 is BidMade -> lobby.receiveBid(player, message.bid)
-                                is CardPlayed -> TODO()
+                                is CardPlayed -> lobby.game?.playCard(player, message.card)
                                 is DogMade -> TODO()
                                 is PlayerTurn -> TODO()
                                 is TurnWon -> TODO()

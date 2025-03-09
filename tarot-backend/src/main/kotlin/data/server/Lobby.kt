@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 class Lobby(val key: String) {
     val players = ConcurrentHashMap<String, Player>()
-    private var game: Game? = null
+    var game: Game? = null
     val deck = Deck()
 
     val json = Json { classDiscriminator = "type" }
@@ -50,10 +50,11 @@ class Lobby(val key: String) {
         logger.info {"${player.username} is ready"}
         logger.info {"Sending hand ${game!!.cardsDealing!!.hands[player]}"}
         unicast(player, HandDealt(game!!.cardsDealing!!.hands[player]!!.toList()))
-        game!!.declarePlayerReady(player)
+        game!!.onPlayerReady(player)
     }
 
     suspend fun receiveBid(player: Player, bid: Bid) {
         game!!.receiveBid(player, bid)
     }
+
 }
