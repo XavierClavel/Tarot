@@ -81,3 +81,9 @@ public class FirstTurn : WebSocketMessage
 {
     public string username;
 }
+
+[System.Serializable]
+public class TurnWon : WebSocketMessage
+{
+    public string username;
+}

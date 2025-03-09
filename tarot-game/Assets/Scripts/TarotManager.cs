@@ -14,6 +14,7 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
     private void Awake()
     {
         EventManagers.game.registerListener(this);
+        EventManagers.turn.registerListener(this);
         instance = this;
     }
 
@@ -26,6 +27,7 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
     private void OnDestroy()
     {
         EventManagers.game.unregisterListener(this);
+        EventManagers.turn.unregisterListener(this);
     }
 
     public void onHandReceived(List<int> cards)
@@ -64,6 +66,7 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
 
     public void onTurnWon(string username)
     {
+        Debug.Log("cleared levee");
         levee = new List<Card>();
         turn++;
     }
@@ -76,10 +79,11 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
     public static bool canBePlayed(Card card)
     {
         List<Card> cardsInHand = Hand.getCards();
+        Debug.Log(card.color == instance.calledKing);
         
         if (instance.levee.isEmpty())
         {
-            if (instance.turn == 1 && card.color == instance.calledKing && card.isRoi())
+            if (instance.turn == 1 && card.color == instance.calledKing)
             {
                 return false;
             }

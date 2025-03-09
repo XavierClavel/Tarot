@@ -93,6 +93,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
             isBiddingOver = true;
             return;
         }
+        Debug.Log("turn start !");
         foreach (var card in cards)
         {
             if (TarotManager.canBePlayed(card.card))
@@ -114,6 +115,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
         foreach (var card in cards)
         {
             card.disableDrag();
+            card.whitenImage();
         }
     }
 
