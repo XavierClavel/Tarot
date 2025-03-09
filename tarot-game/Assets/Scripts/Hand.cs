@@ -74,7 +74,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
 
     public void onTurnWon(string username)
     {
-        throw new NotImplementedException();
+        
     }
 
     public void onFirstTurn(string username)

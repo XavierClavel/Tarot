@@ -76,4 +76,9 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
     {
         makeBidLayout.SetActive(false);
     }
+
+    public void onTurnWon(string username)
+    {
+        
+    }
 }

@@ -6,13 +6,13 @@ data class Card(
     val id: Int,
     val value: Int,
     val color: Color,
+    var owner: Player? = null,
     val status: CardStatus = CardStatus.IN_HAND,
-    var owner: Player? = null
 ) {
 
     companion object {
-        fun fromId(id: Int) : Card =
-            when(id) {
+        fun fromId(id: Int, owner: Player?) : Card {
+            val card = when (id) {
                 in 1..14 -> Card(id, id, Color.CARREAU)
                 in 15..28 -> Card(id, id - 14, Color.TREFLE)
                 in 29..42 -> Card(id, id - 28, Color.COEUR)
@@ -21,6 +21,9 @@ data class Card(
                 78 -> Card(id, -1, Color.EXCUSE)
                 else -> throw Exception("Invalid card id")
             }
+            card.owner = owner
+            return card
+        }
     }
 
 

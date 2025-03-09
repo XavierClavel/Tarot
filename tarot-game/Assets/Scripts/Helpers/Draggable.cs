@@ -66,6 +66,7 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
             AttachToDraggableHolder(hoverDraggableHolder);
             selectedDraggableHolder = hoverDraggableHolder;
             selectedDraggableHolder.selectedDraggable = this;
+            selectedDraggableHolder.onAttachDraggable(this);
             hoverDraggableHolder.hoverDraggable = null;
             hoverDraggableHolder = null;
             onPlaced();

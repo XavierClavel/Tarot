@@ -14,4 +14,9 @@ public class DropZone: DraggableHolder
     {
         return TarotCard.draggedCard;
     }
+
+    public override void onAttachDraggable(Draggable draggable)
+    {
+        destroyAttachedDraggable();
+    }
 }

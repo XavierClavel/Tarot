@@ -37,6 +37,18 @@ public abstract class DraggableHolder : MonoBehaviour, IPointerEnterHandler, IPo
     {
         
     }
+
+    public virtual void onAttachDraggable(Draggable draggable)
+    {
+        
+    }
+
+    protected virtual void destroyAttachedDraggable()
+    {
+        if (selectedDraggable == null) return;
+        Destroy(selectedDraggable);
+        selectedDraggable = null;
+    }
     
     public void UseDraggable()
     {

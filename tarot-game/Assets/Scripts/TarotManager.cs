@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TarotManager: MonoBehaviour, IGameListener
+public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
 {
     private static TarotManager instance;
     private List<Card> levee = new List<Card>();
@@ -43,6 +43,21 @@ public class TarotManager: MonoBehaviour, IGameListener
     }
 
     public void onCardPlayedByMe(int card)
+    {
+        
+    }
+
+    public void onPlayerTurn(string username)
+    {
+        
+    }
+
+    public void onMyTurnStart()
+    {
+        
+    }
+
+    public void onMyTurnEnd()
     {
         
     }

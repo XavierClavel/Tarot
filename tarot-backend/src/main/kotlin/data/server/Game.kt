@@ -68,12 +68,12 @@ class Game(val lobby: Lobby) {
         cardsDealing = lobby.deck.deal(lobby.players.values.toList())
         logger.info {cardsDealing}
         cardsDealing!!.hands.forEach { hand ->
-            hands.put(hand.key, hand.value.map { Card.fromId(it) }.toMutableList())
+            hands.put(hand.key, hand.value.map { Card.fromId(it, hand.key) }.toMutableList())
         }
     }
 
     suspend fun playCard(player: Player, cardIndex: Int) {
-        val card = Card.fromId(cardIndex)
+        val card = Card.fromId(cardIndex, player)
         if (player != currentPlayer) {
             throw InvalidAction("Not your turn")
         }
@@ -89,7 +89,8 @@ class Game(val lobby: Lobby) {
         lobby.broadcast(CardPlayed(cardIndex))
         if (isRoundComplete()) {
             val bestCard = tarotService.findBestCard(currentLevee)
-            lobby.broadcast(PlayerTurn(bestCard.owner!!.username))
+            logger.info {bestCard}
+            lobby.broadcast(TurnWon(bestCard.owner!!.username))
             winTurn(bestCard.owner!!)
         } else {
             switchToNextPlayer()
@@ -99,6 +100,7 @@ class Game(val lobby: Lobby) {
 
     fun winTurn(player: Player) {
         currentLevee.forEach {
+            points.putIfAbsent(player, mutableSetOf())
             points[player]!!.add(it)
         }
         currentLevee.clear()

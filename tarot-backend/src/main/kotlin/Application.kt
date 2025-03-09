@@ -28,7 +28,6 @@ import xclavel.data.server.PlayerJoined
 import xclavel.data.server.PlayerLeft
 import xclavel.data.server.PlayerTurn
 import xclavel.data.server.StartGame
-import xclavel.data.server.TurnWon
 import xclavel.data.server.WebSocketMessage
 import xclavel.services.LobbyService
 import xclavel.utils.logger
@@ -47,6 +46,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+
     val lobbyService by inject<LobbyService>()
     val json = Json { classDiscriminator = "type" }
 
@@ -72,24 +72,22 @@ fun Application.module() {
                 for (frame in incoming) {
                     if (frame is Frame.Text) {
                         val text = frame.readText()
+                        logger.info { text }
                         try {
                             val message = json.decodeFromString<WebSocketMessage>(text)
 
                             when (message) {
-                                is PlayerJoined -> TODO()
                                 is PlayerLeft -> lobby.broadcast(message)
                                 is BidMade -> lobby.receiveBid(player, message.bid)
                                 is CardPlayed -> lobby.game?.playCard(player, message.card)
                                 is DogMade -> TODO()
-                                is PlayerTurn -> TODO()
-                                is TurnWon -> TODO()
                                 is StartGame -> lobby.setupGame()
                                 is GameReady -> lobby.getHand(player)
-                                is HandDealt -> TODO()
                                 else -> throw InvalidAction("Unknow action")
                             }
                         } catch (e: Exception) {
-                            println("Error decoding WebSocket message: $e")
+                            e.printStackTrace()
+                            println("Error decoding WebSocket message: ${e.message}")
                         }
                     }
                 }
