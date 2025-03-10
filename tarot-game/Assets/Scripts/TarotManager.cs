@@ -39,6 +39,11 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
         }
     }
 
+    public void onCardPlayed(string username, int card)
+    {
+        
+    }
+
     public void onCardPlayedByOther(string username, int card)
     {
         levee.Add(new Card(card));

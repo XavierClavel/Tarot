@@ -10,6 +10,8 @@ public class TarotCard : Draggable
     public void setValue(int id)
     {
         card = new Card(id);
+        image.sprite = Hand.getSprite(id);
+        name = card.toString();
     }
     public void setup(RectTransform canvas, RectTransform slot)
     {

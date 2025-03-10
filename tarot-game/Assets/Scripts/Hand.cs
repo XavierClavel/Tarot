@@ -16,6 +16,8 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
     private RectTransform rectTransform;
     private static Hand instance;
     private bool isBiddingOver = false;
+    
+    public static Sprite getSprite(int card) => instance.tarotSprites.getSprite(card);
 
     public static void onBiddingOver() => instance.isBiddingOver = true;
 
@@ -51,7 +53,6 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
             card.setup(rectTransform, slot);
             card.setValue(hand[i]);
             card.disableDrag();
-            card.image.sprite = tarotSprites.getSprite(hand[i]);
             cards.Add(card);
         }
     }
@@ -60,6 +61,11 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
     {
         generateCards(cards);
         hand = cards.map(it => new Card(it));
+    }
+
+    public void onCardPlayed(string username, int card)
+    {
+        
     }
 
     public void onCardPlayedByOther(string username, int card)

@@ -146,6 +146,7 @@ public class LobbyManager: MonoBehaviour
             case "card_played":
                 CardPlayed cardPlayed = JsonUtility.FromJson<CardPlayed>(json);
                 Debug.Log($"{currentPlayerTurn} played {new Card(cardPlayed.card).toString()}");
+                EventManagers.game.dispatchEvent(it => it.onCardPlayed(currentPlayerTurn, cardPlayed.card));
                 if (currentPlayerTurn == username)
                 {
                     EventManagers.game.dispatchEvent(it => it.onCardPlayedByMe(cardPlayed.card));
