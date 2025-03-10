@@ -101,10 +101,11 @@ fun Application.module() {
 }
 
 //TODO: petit sec
-//TODO: afficher atouts dans le chien
+//TODO: chien
 //TODO: chelem
 //TODO: poignées
 //TODO: petit au bout
 //TODO: fausse donne
 //TODO: appel au roi
 //TODO: 2 players mode
+//TODO: excuse points switch

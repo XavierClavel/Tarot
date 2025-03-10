@@ -87,3 +87,11 @@ public class TurnWon : WebSocketMessage
 {
     public string username;
 }
+
+[System.Serializable]
+public class GameOver : WebSocketMessage
+{
+    public bool victory;
+    public int score;
+    public Dictionary<string, int> playerScores;
+}

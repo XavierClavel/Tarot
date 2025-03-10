@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 class Lobby(val key: String) {
     val players = ConcurrentHashMap<String, Player>()
+    val score : MutableList<Map<Player, Int>> = mutableListOf()
     var game: Game? = null
     val deck = Deck()
 
@@ -55,6 +56,10 @@ class Lobby(val key: String) {
 
     suspend fun receiveBid(player: Player, bid: Bid) {
         game!!.receiveBid(player, bid)
+    }
+
+    fun addGameResult(result: Map<Player, Int>) {
+        score.add(result)
     }
 
 }

@@ -169,6 +169,16 @@ public class LobbyManager: MonoBehaviour
                 Debug.Log($"Turn won by {turnWon.username}");
                 EventManagers.turn.dispatchEvent(it => it.onTurnWon(turnWon.username));
                 break;
+            
+            case "game_over":
+                Debug.Log(json);
+                GameOver gameOver = JsonUtility.FromJson<GameOver>(json);
+                Debug.Log($"Victory ? {gameOver.victory} with {gameOver.score} points");
+                foreach (var score in gameOver.playerScores)
+                {
+                    Debug.Log($"{score.Key} -> {score.Value} points");
+                }
+                break;
         }
     }
 

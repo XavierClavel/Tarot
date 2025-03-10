@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import xclavel.data.tarot.data.tarot.Bid
+import java.util.Dictionary
 
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
@@ -49,6 +50,10 @@ data class StartGame(val parameters: String) : WebSocketMessage()
 @Serializable
 @SerialName("game_ready")
 class GameReady(): WebSocketMessage()
+
+@Serializable
+@SerialName("game_over")
+class GameOver(val victory: Boolean, val score: Int, val playerScores: Map<String, Int>): WebSocketMessage()
 
 @Serializable
 @SerialName("hand_dealt")

@@ -8,6 +8,8 @@ data class Card(
     val color: Color,
     var owner: Player? = null,
     val status: CardStatus = CardStatus.IN_HAND,
+    var scoredAt: Int = -1,
+    var scoredBy: Player? = null,
 ) {
 
     companion object {

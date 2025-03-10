@@ -87,7 +87,7 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
         
         if (instance.levee.isEmpty())
         {
-            if (instance.turn == 1 && card.color == instance.calledKing)
+            if (instance.turn == 1 && card.color == instance.calledKing && !card.isRoi())
             {
                 return false;
             }
@@ -104,7 +104,7 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
         if (card.isRegularCard() && card.color == firstActiveCard.color) return true;
         
         //must play same color if possible
-        if (firstActiveCard.color != card.color && cardsInHand.Any(it => it.color == firstActiveCard.color))
+        if (card.color != firstActiveCard.color && cardsInHand.Any(it => it.color == firstActiveCard.color))
         {
             return false;
         }
