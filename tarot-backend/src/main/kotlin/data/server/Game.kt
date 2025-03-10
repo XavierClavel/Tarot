@@ -92,6 +92,8 @@ class Game(val lobby: Lobby) {
             logger.info {bestCard}
             lobby.broadcast(TurnWon(bestCard.owner!!.username))
             winTurn(bestCard.owner!!)
+            delay(3000L)
+            lobby.broadcast(PlayerTurn(bestCard.owner!!.username))
         } else {
             switchToNextPlayer()
         }

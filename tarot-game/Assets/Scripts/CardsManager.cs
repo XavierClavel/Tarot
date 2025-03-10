@@ -7,6 +7,7 @@ public class CardsManager : MonoBehaviour, IGameListener, ITurnListener
     [SerializeField] private Transform cardsLayout;
     [SerializeField] private PlayerCard playerCardPrefab;
     private List<PlayerCard> playerCards = new List<PlayerCard>();
+    private bool turnWon = false;
 
     private void Awake()
     {
@@ -50,7 +51,14 @@ public class CardsManager : MonoBehaviour, IGameListener, ITurnListener
 
     public void onPlayerTurn(string username)
     {
-        
+        if (!turnWon) return;
+        turnWon = false;
+        foreach (var card in playerCards)
+        {
+            Destroy(card.gameObject);
+        }
+
+        playerCards = new List<PlayerCard>();
     }
 
     public void onMyTurnStart()
@@ -65,18 +73,7 @@ public class CardsManager : MonoBehaviour, IGameListener, ITurnListener
 
     public void onTurnWon(string username)
     {
-        Debug.Log("here");
-        Invoke(nameof(destroyCards),2f);
+        turnWon = true;
     }
 
-    private void destroyCards()
-    {
-        foreach (var card in playerCards)
-        {
-            Destroy(card.gameObject);
-            Debug.Log("card destroyed");
-        }
-
-        playerCards = new List<PlayerCard>();
-    }
 }

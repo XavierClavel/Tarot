@@ -17,6 +17,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
     private static Hand instance;
     private bool isBiddingOver = false;
     
+    
     public static Sprite getSprite(int card) => instance.tarotSprites.getSprite(card);
 
     public static void onBiddingOver() => instance.isBiddingOver = true;
@@ -75,6 +76,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
 
     public void onCardPlayedByMe(int card)
     {
+        cards.removeIf(it => it.card.value == card);
         hand.removeIf(it => it.value == card);
     }
 
