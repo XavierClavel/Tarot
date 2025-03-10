@@ -168,14 +168,6 @@ public class LobbyManager: MonoBehaviour
                 TurnWon turnWon = JsonUtility.FromJson<TurnWon>(json);
                 Debug.Log($"Turn won by {turnWon.username}");
                 EventManagers.turn.dispatchEvent(it => it.onTurnWon(turnWon.username));
-                EventManagers.turn.dispatchEvent(it => it.onPlayerTurn(turnWon.username));
-                if (currentPlayerTurn == username) {
-                    EventManagers.turn.dispatchEvent(it => it.onMyTurnEnd());
-                }
-                if (turnWon.username == username) {
-                    EventManagers.turn.dispatchEvent(it => it.onMyTurnStart());
-                }
-                currentPlayerTurn = turnWon.username;
                 break;
         }
     }

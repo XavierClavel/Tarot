@@ -66,6 +66,11 @@ public class CardsManager : MonoBehaviour, IGameListener, ITurnListener
     public void onTurnWon(string username)
     {
         Debug.Log("here");
+        Invoke(nameof(destroyCards),2f);
+    }
+
+    private void destroyCards()
+    {
         foreach (var card in playerCards)
         {
             Destroy(card.gameObject);
