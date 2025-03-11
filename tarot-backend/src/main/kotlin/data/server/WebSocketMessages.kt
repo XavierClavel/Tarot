@@ -37,6 +37,10 @@ data class TurnWon(val username: String) : WebSocketMessage()
 data class BidMade(val bid: Bid) : WebSocketMessage()
 
 @Serializable
+@SerialName("dog_reveal")
+data class DogReveal(val cards: List<Int>) : WebSocketMessage()
+
+@Serializable
 @SerialName("dog_made")
 data class DogMade(val cards: List<Int>): WebSocketMessage()
 
@@ -62,7 +66,3 @@ data class HandDealt(val cards: List<Int>): WebSocketMessage()
 @Serializable
 @SerialName("bid_result")
 data class BidResult(val username: String, val bid: Bid): WebSocketMessage()
-
-@Serializable
-@SerialName("first_turn")
-data class FirstTurn(val username: String): WebSocketMessage()

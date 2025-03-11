@@ -44,10 +44,6 @@ public class CardsManager : MonoBehaviour, IGameListener, ITurnListener
         
     }
 
-    public void onFirstTurn(string username)
-    {
-        
-    }
 
     public void onPlayerTurn(string username)
     {

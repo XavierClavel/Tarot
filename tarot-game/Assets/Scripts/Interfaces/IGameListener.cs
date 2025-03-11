@@ -7,5 +7,4 @@ public interface IGameListener
     public void onCardPlayed(string username, int card);
     public void onCardPlayedByOther(string username, int card);
     public void onCardPlayedByMe(int card);
-    public void onFirstTurn(string username);
 }

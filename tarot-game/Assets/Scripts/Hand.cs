@@ -3,24 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Hand: MonoBehaviour, IGameListener, ITurnListener
 {
     [SerializeField] private TarotCard cardPrefab;
-    [SerializeField] private RectTransform slotPrefab;
+    [SerializeField] private DraggableHolder slotPrefab;
     [SerializeField] private TarotSprites tarotSprites;
     [SerializeField] private List<Sprite> sprites;
     private List<TarotCard> cards = new List<TarotCard>();
     private List<Card> hand = new List<Card>();
-    private List<Transform> slots = new List<Transform>();
-    private RectTransform rectTransform;
-    private static Hand instance;
+    private List<DraggableHolder> slots = new List<DraggableHolder>();
+    [SerializeField] private RectTransform canvas;
+    public static Hand instance;
     private bool isBiddingOver = false;
 
     public static void playCard(int card)
     {
-        instance.cards.removeIf(it => it.card.index == card);
-        instance.hand.removeIf(it => it.index == card);
+        LobbyManager.sendWebSocketMessage(new CardPlayed(card));
+        instance.removeCard(card);
     }
     
     
@@ -30,10 +31,10 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
         instance = this;
         EventManagers.game.registerListener(this);
         EventManagers.turn.registerListener(this);
+        generateCards(new List<int>{10,11,12,13,14});
     }
 
     private void OnDestroy()
@@ -44,30 +45,62 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
 
     private void generateCards(List<int> hand)
     {
-        int amount = hand.Count;
+        foreach (var card in hand)
+        {
+            addCard(card);
+        }
+    }
+
+    public void addCard(int cardId)
+    {
+        var slot = Instantiate(slotPrefab, transform);
+        
+        var newCard = Instantiate(cardPrefab, slot.transform);
+        newCard.transform.localPosition = Vector3.zero;
+        newCard.setup(canvas, slot);
+        newCard.setValue(cardId);
+        
+        cards.Add(newCard);
+        hand.Add(new Card(cardId));
+        slots.Add(slot);
+
+        updateCardsPositions();
+    }
+
+    public void removeCard(int cardId)
+    {
+        var index = instance.hand.FindIndex(it => it.index == cardId);
+        Debug.Log(index);
+        cards.RemoveAt(index);
+        hand.RemoveAt(index);
+        Destroy(slots[index].gameObject);
+        slots.RemoveAt(index);
+
+        updateCardsPositions();
+    }
+
+    private void updateCardsPositions()
+    {
+        int amount = cards.Count;
         float deltaRotation = 5 * (1 - (float)amount / 50);
         float deltaX = 50 * (1 - (float)amount / 50);
+        
         for (int i = 0; i < amount; i++)
         {
             var index =  i - (float)(amount-1) / 2;
-            var slot = Instantiate(slotPrefab, rectTransform);
-            slot.position += deltaX * index * Vector3.right;
-            slot.position += 5 * Mathf.Pow(Mathf.Abs(index)/3.3f, 2) * Vector3.down;
-            slot.eulerAngles += deltaRotation * index * Vector3.back;
-            
-            var card = Instantiate(cardPrefab, slot);
-            card.transform.localPosition = Vector3.zero;
-            card.setup(rectTransform, slot);
-            card.setValue(hand[i]);
-            card.disableDrag();
-            cards.Add(card);
+            slots[i].transform.localPosition = deltaX * index * Vector3.right
+                                       + 5 * Mathf.Pow(Mathf.Abs(index)/3.3f, 2) * Vector3.down;
+            slots[i].transform.eulerAngles = deltaRotation * index * Vector3.back;
         }
     }
 
     public void onHandReceived(List<int> cards)
     {
         generateCards(cards);
-        hand = cards.map(it => new Card(it));
+        foreach (var card in this.cards)
+        {
+            card.disableDrag();
+        }
     }
 
     public void onCardPlayed(string username, int card)
@@ -86,11 +119,6 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
     }
 
     public void onTurnWon(string username)
-    {
-        
-    }
-
-    public void onFirstTurn(string username)
     {
         
     }

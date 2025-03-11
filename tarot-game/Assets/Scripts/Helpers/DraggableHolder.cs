@@ -2,30 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
-public abstract class DraggableHolder : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DraggableHolder : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [HideInInspector] public Draggable hoverDraggable;
-    [HideInInspector] public Draggable selectedDraggable;
+    [HideInInspector] public Draggable itemHovering;
+    [HideInInspector] public Draggable itemSelected;
     public RectTransform rectTransform;
     
     public void OnPointerEnter(PointerEventData e)
     {
-        Draggable draggable = getSelectedDraggable();
+        Draggable draggable = Draggable.draggedCard;
         if (draggable == null) return;
-        hoverDraggable = draggable;
-        hoverDraggable.hoverDraggableHolder = this;
+        itemHovering = draggable;
+        itemHovering.slotHovered = this;
         onPointerEnter();
     }
 
-    protected abstract Draggable getSelectedDraggable();
     
     public void OnPointerExit(PointerEventData e)
     {
-        if (hoverDraggable == null) return;
+        if (itemHovering == null) return;
         onPointerExit();
-        hoverDraggable.hoverDraggableHolder = null;
-        hoverDraggable = null;
+        itemHovering.slotHovered = null;
+        itemHovering = null;
     }
 
     protected virtual void onPointerEnter()
@@ -45,17 +45,17 @@ public abstract class DraggableHolder : MonoBehaviour, IPointerEnterHandler, IPo
 
     protected virtual void destroyAttachedDraggable()
     {
-        if (selectedDraggable == null) return;
-        Destroy(selectedDraggable.gameObject);
-        selectedDraggable = null;
+        if (itemSelected == null) return;
+        Destroy(itemSelected.gameObject);
+        itemSelected = null;
     }
     
     public void UseDraggable()
     {
         onUseDraggable();
-        if (selectedDraggable == null) return;
-        Destroy(selectedDraggable.gameObject);
-        selectedDraggable = null;
+        if (itemSelected == null) return;
+        Destroy(itemSelected.gameObject);
+        itemSelected = null;
     }
 
     public virtual void onUseDraggable()
@@ -65,7 +65,17 @@ public abstract class DraggableHolder : MonoBehaviour, IPointerEnterHandler, IPo
     
     public bool isFree(Draggable draggable)
     {
-        return selectedDraggable == null || selectedDraggable == draggable;
+        return itemSelected == null || itemSelected == draggable;
+    }
+
+    public virtual void onBeginDrag(Draggable draggable)
+    {
+        
+    }
+
+    public virtual void onEndDrag(Draggable draggable)
+    {
+        
     }
 
 }

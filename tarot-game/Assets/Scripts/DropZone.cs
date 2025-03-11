@@ -10,11 +10,6 @@ public class DropZone: DraggableHolder
         gameObject.SetActive(false);
     }
 
-    protected override Draggable getSelectedDraggable()
-    {
-        return TarotCard.draggedCard;
-    }
-
     public override void onAttachDraggable(Draggable draggable)
     {
         TarotCard card = (TarotCard)draggable;

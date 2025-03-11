@@ -76,10 +76,6 @@ public class TarotManager: MonoBehaviour, IGameListener, ITurnListener
         turn++;
     }
 
-    public void onFirstTurn(string username)
-    {
-        
-    }
 
     public static bool canBePlayed(Card card)
     {

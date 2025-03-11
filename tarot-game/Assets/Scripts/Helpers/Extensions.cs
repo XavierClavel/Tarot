@@ -36,14 +36,9 @@ public static class Extensions
         return filteredList;
     }
     
-    public static List<T> removeIf<T>(this List<T> list, Predicate<T> predicate)
+    public static void removeIf<T>(this List<T> list, Predicate<T> predicate)
     {
-        List<T> filteredList = list.copy();
-        list.ForEach(it =>
-        {
-            if (predicate(it)) filteredList.Remove(it);
-        });
-        return filteredList;
+        list.RemoveAll(predicate);
     }
     
     public static bool none<T>(this List<T> list, Predicate<T> predicate)

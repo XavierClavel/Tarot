@@ -77,12 +77,6 @@ public class BidMade : WebSocketMessage
 }
 
 [System.Serializable]
-public class FirstTurn : WebSocketMessage
-{
-    public string username;
-}
-
-[System.Serializable]
 public class TurnWon : WebSocketMessage
 {
     public string username;
@@ -94,4 +88,22 @@ public class GameOver : WebSocketMessage
     public bool victory;
     public int score;
     public Dictionary<string, int> playerScores;
+}
+
+[System.Serializable]
+public class DogReveal : WebSocketMessage
+{
+    public List<int> cards;
+}
+
+[System.Serializable]
+public class DogMade : WebSocketMessage
+{
+    public List<int> cards;
+
+    public DogMade(List<int> cards)
+    {
+        this.type = "dog_made";
+        this.cards = cards;
+    }
 }

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class TarotCard : Draggable
 {
-    public static TarotCard draggedCard;
     public Card card;
 
     public void setValue(int id)
@@ -13,16 +12,18 @@ public class TarotCard : Draggable
         image.sprite = Hand.getSprite(id);
         name = card.toString();
     }
-    public void setup(RectTransform canvas, RectTransform slot)
+    public void setup(Transform canvas, DraggableHolder slot)
     {
         this.canvas = canvas;
-        this.slot = slot;
+        this.slot = slot.transform;
+        slotSelected = slot;
+        slotSelected.itemSelected = this;
     }
 
     protected override void onBeginDrag()
     {
         draggedCard = this;
-        DropZone.instance.gameObject.SetActive(true);
+        //DropZone.instance.gameObject.SetActive(true);
     }
 
     protected override void onEndDrag()
@@ -33,6 +34,6 @@ public class TarotCard : Draggable
 
     protected override void onPlaced()
     {
-        LobbyManager.sendWebSocketMessage(new CardPlayed(card.index));
+        
     }
 }

@@ -156,14 +156,7 @@ public class LobbyManager: MonoBehaviour
                     EventManagers.game.dispatchEvent(it => it.onCardPlayedByOther(currentPlayerTurn, cardPlayed.card));
                 }
                 break;
-                
-            
-            case "first_turn":
-                FirstTurn firstTurn = JsonUtility.FromJson<FirstTurn>(json);
-                Debug.Log("first turn");
-                EventManagers.game.dispatchEvent(it => it.onFirstTurn(firstTurn.username));
-                break;
-            
+
             case "turn_won":
                 TurnWon turnWon = JsonUtility.FromJson<TurnWon>(json);
                 Debug.Log($"Turn won by {turnWon.username}");
@@ -178,6 +171,11 @@ public class LobbyManager: MonoBehaviour
                 {
                     Debug.Log($"{score.Key} -> {score.Value} points");
                 }
+                break;
+            
+            case "dog_reveal":
+                DogReveal dogReveal = JsonUtility.FromJson<DogReveal>(json);
+                EventManagers.dog.dispatchEvent(it => it.onDogReveal(dogReveal.cards));
                 break;
         }
     }

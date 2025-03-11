@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,11 +9,12 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
 {
     public Image image;
     public RectTransform rectTransform;
-    [SerializeField] protected RectTransform slot;
-    [HideInInspector] public DraggableHolder hoverDraggableHolder = null;
-    [HideInInspector] public DraggableHolder selectedDraggableHolder = null;
+    [SerializeField] protected Transform slot;
+    [HideInInspector] public DraggableHolder slotHovered = null;
+    [HideInInspector] public DraggableHolder slotSelected = null;
     protected bool canBeDragged = true;
-    protected RectTransform canvas;
+    protected Transform canvas;
+    public static Draggable draggedCard;
 
     public void disableDrag() => canBeDragged = false;
     public void enableDrag() => canBeDragged = true;
@@ -25,6 +27,7 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
         if (!canBeDragged) return;
         image.raycastTarget = false;
         transform.SetParent(canvas);
+        slotSelected?.onBeginDrag(this);
         onBeginDrag();
     }
 
@@ -42,36 +45,41 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        slotSelected?.onEndDrag(this);
         if (!canBeDragged) return;
         image.raycastTarget = true;
+        Debug.Log($"Slot hovered: {slotHovered?.name}");
+        Debug.Log($"Slot selected: {slotSelected?.name}");
+        Debug.Log($"Slot hovered item hovering: {slotHovered?.itemHovering?.name}");
+        Debug.Log($"Slot hovered item selected: {slotHovered?.itemSelected?.name}");
+        Debug.Log($"Slot selected item hovering: {slotSelected?.itemHovering?.name}");
+        Debug.Log($"Slot selected item selected: {slotSelected?.itemSelected?.name}");
         
-        if (hoverDraggableHolder == null)
+        if (slotHovered == null)
         {
-            AttachToSlot();
-            return;
-        } else if (!hoverDraggableHolder.isFree(this))
-        {
-            hoverDraggableHolder.hoverDraggable = null;
-            hoverDraggableHolder = null;
-            AttachToSlot();
+            backToCurrentSlot();
             return;
         }
-        else
+        if (!slotHovered.isFree(this))
         {
-            if (selectedDraggableHolder != null && selectedDraggableHolder != hoverDraggableHolder)
-            {
-                selectedDraggableHolder.selectedDraggable = null;
-                selectedDraggableHolder = null;
-            }
-            AttachToDraggableHolder(hoverDraggableHolder);
-            selectedDraggableHolder = hoverDraggableHolder;
-            selectedDraggableHolder.selectedDraggable = this;
-            selectedDraggableHolder.onAttachDraggable(this);
-            hoverDraggableHolder.hoverDraggable = null;
-            hoverDraggableHolder = null;
-            onPlaced();
-            onEndDrag();
+            slotHovered.itemHovering = null;
+            slotHovered = null;
+            backToCurrentSlot();
+            return;
         }
+        if (slotSelected != null && slotSelected != slotHovered)
+        {
+            slotSelected.itemSelected = null;
+            slotSelected = null;
+        }
+        attachToNewSlot(slotHovered);
+        slotSelected = slotHovered;
+        slotSelected.itemSelected = this;
+        slotSelected.onAttachDraggable(this);
+        slotHovered.itemHovering = null;
+        slotHovered = null;
+        onPlaced();
+        onEndDrag();
         
     }
 
@@ -84,7 +92,7 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
     }
     
-    private void AttachToDraggableHolder(DraggableHolder draggableHolder)
+    private void attachToNewSlot(DraggableHolder draggableHolder)
     {
         rectTransform.SetParent(draggableHolder.rectTransform);
         rectTransform.anchorMin = 0.5f * Vector2.one;
@@ -92,18 +100,12 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
         rectTransform.anchoredPosition = Vector2.zero;
     }
     
-    private void AttachToSlot()
+    private void backToCurrentSlot()
     {
         if (!onDrop()) return;
         
         rectTransform.DOMove(slot.position, 0.4f).SetEase(Ease.InOutQuad).OnComplete(delegate
         {
-            if (selectedDraggableHolder != null)
-            {
-                selectedDraggableHolder.selectedDraggable = null;
-                selectedDraggableHolder = null;
-            }
-            
             rectTransform.SetParent(slot, true);
             rectTransform.anchorMin = 0.5f * Vector2.one;
             rectTransform.anchorMax = 0.5f * Vector2.one;
@@ -114,5 +116,13 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
     protected virtual bool onDrop()
     {
         return true;
+    }
+
+    private void OnDestroy()
+    {
+        if (slotSelected != null)
+        {
+            slotSelected.itemSelected = null;
+        }
     }
 }
