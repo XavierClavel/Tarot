@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Hand: MonoBehaviour, IGameListener, ITurnListener
+public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
 {
     [SerializeField] private TarotCard cardPrefab;
     [SerializeField] private DraggableHolder slotPrefab;
@@ -34,13 +34,15 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
         instance = this;
         EventManagers.game.registerListener(this);
         EventManagers.turn.registerListener(this);
-        generateCards(new List<int>{10,11,12,13,14});
+        EventManagers.dog.registerListener(this);
+        //generateCards(new List<int>{10,11,12,13,14});
     }
 
     private void OnDestroy()
     {
         EventManagers.game.unregisterListener(this);
         EventManagers.turn.unregisterListener(this);
+        EventManagers.dog.unregisterListener(this);
     }
 
     private void generateCards(List<int> hand)
@@ -161,4 +163,22 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener
     }
 
     public static List<Card> getCards() => instance.hand;
+    
+    public void onDogReveal(List<int> cards, string attacker)
+    {
+        if (attacker != LobbyManager.getUsername()) return;
+        foreach (var card in this.cards)
+        {
+            if (card.card.isRoi() || card.card.isOudler())
+            {
+                card.disableDrag();
+                card.darkenImage();
+            }
+            else
+            {
+                card.enableDrag();
+                card.whitenImage();
+            }
+        }
+    }
 }

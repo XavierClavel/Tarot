@@ -94,6 +94,7 @@ public class GameOver : WebSocketMessage
 public class DogReveal : WebSocketMessage
 {
     public List<int> cards;
+    public string attacker;
 }
 
 [System.Serializable]

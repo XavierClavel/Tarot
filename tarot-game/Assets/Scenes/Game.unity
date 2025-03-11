@@ -1552,6 +1552,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 7947109589325213870, guid: 969c35c5fddcf05439affbebcd50b883, type: 3}
   slotPrefab: {fileID: 8454809299846403808, guid: ee4ec9d53377ca2479c9308849769623, type: 3}
   dogLayout: {fileID: 1027275918}
+  submitButton: {fileID: 1857684314}
 --- !u!4 &735528973
 Transform:
   m_ObjectHideFlags: 0

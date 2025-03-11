@@ -175,7 +175,7 @@ public class LobbyManager: MonoBehaviour
             
             case "dog_reveal":
                 DogReveal dogReveal = JsonUtility.FromJson<DogReveal>(json);
-                EventManagers.dog.dispatchEvent(it => it.onDogReveal(dogReveal.cards));
+                EventManagers.dog.dispatchEvent(it => it.onDogReveal(dogReveal.cards, dogReveal.attacker));
                 break;
         }
     }

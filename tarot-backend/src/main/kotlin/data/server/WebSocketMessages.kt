@@ -38,7 +38,7 @@ data class BidMade(val bid: Bid) : WebSocketMessage()
 
 @Serializable
 @SerialName("dog_reveal")
-data class DogReveal(val cards: List<Int>) : WebSocketMessage()
+data class DogReveal(val attacker: String, val cards: List<Int>) : WebSocketMessage()
 
 @Serializable
 @SerialName("dog_made")

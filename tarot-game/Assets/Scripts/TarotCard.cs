@@ -23,7 +23,10 @@ public class TarotCard : Draggable
     protected override void onBeginDrag()
     {
         draggedCard = this;
-        //DropZone.instance.gameObject.SetActive(true);
+        if (!DogManager.dogPhase)
+        {
+            DropZone.instance.gameObject.SetActive(true);   
+        }
     }
 
     protected override void onEndDrag()

@@ -11,6 +11,12 @@ public class Card
     public bool isExcuse() => value == -1;
     public bool isRegularCard() => color != TarotColor.ATOUT && color != TarotColor.EXCUSE;
 
+    public bool isOudler() =>
+        color == TarotColor.EXCUSE ||
+        (color == TarotColor.ATOUT &&
+         (value == 1 || value == 21)
+        );
+
     public string toString()
     {
         if (isExcuse()) return "Excuse";

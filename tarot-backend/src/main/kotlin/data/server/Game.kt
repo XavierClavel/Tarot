@@ -26,6 +26,7 @@ class Game(val lobby: Lobby) {
     val playersReady = mutableSetOf<Player>()
 
     val attackers = mutableListOf<Player>()
+    var awaitingDog = false
 
 
     suspend fun onPlayerReady(player: Player) {
@@ -58,10 +59,22 @@ class Game(val lobby: Lobby) {
             lobby.broadcast(BidResult(highestBidder.username, bids[highestBidder]!!))
             logger.info {"Bid won by ${highestBidder.username} with ${bids[highestBidder]}"}
             currentPlayer = highestBidder
-            delay(3000L)
-            lobby.broadcast(PlayerTurn(currentPlayer!!.username))
+            lobby.broadcast(DogReveal(currentPlayer!!.username, cardsDealing!!.dog))
+            awaitingDog = true
         }
+    }
 
+    suspend fun receiveDog(cardIds: List<Int>, player: Player) {
+        if (player != currentPlayer) throw InvalidAction("Not your turn")
+        if (!awaitingDog) throw InvalidAction("Not the right time")
+        awaitingDog = false
+        val cards = cardIds.map {Card.fromId(it, player)}
+        if (cards.any { it.isOudler() || it.isRoi() }) throw InvalidAction("Invalid dog")
+         cards.forEach { card ->
+            card.scoredBy = player
+            points.add(card)
+        }
+        lobby.broadcast(PlayerTurn(currentPlayer!!.username))
     }
 
     fun isGameOver(): Boolean =
