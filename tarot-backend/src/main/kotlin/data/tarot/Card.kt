@@ -62,6 +62,8 @@ data class Card(
 
     fun isRegularCard() = color != Color.ATOUT && color != Color.EXCUSE
 
+    fun isLowValue() = countPoint() == 0.5f
+
     override fun toString(): String =
         when {
             isExcuse() -> "Excuse"

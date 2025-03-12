@@ -29,6 +29,7 @@ class Game(val lobby: Lobby) {
     val attackers = mutableListOf<Player>()
     var awaitingDog = false
     val playerCount = lobby.players.size
+    var excuseFlag = false;
 
 
     suspend fun onPlayerReady(player: Player) {
@@ -158,7 +159,22 @@ class Game(val lobby: Lobby) {
     fun winTurn(player: Player) {
         currentLevee.forEach { card ->
             card.scoredAt = turn
-            card.scoredBy = player
+            if (card.isExcuse()) {
+                card.scoredBy = card.owner
+                val lowCards = points.filterNot { it.owner in attackers && it.isLowValue()  }
+                if (lowCards.isEmpty()) {
+                    excuseFlag = true
+                } else {
+                    lowCards.last().scoredBy = player
+                }
+            } else {
+                if (excuseFlag && !attackers.contains(player)) {
+                    card.scoredBy = attackers[0]
+                    excuseFlag = false
+                } else {
+                    card.scoredBy = player
+                }
+            }
             points.add(card)
         }
         currentLevee.clear()
