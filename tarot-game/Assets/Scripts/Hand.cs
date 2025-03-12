@@ -12,7 +12,6 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
     [SerializeField] private TarotSprites tarotSprites;
     [SerializeField] private List<Sprite> sprites;
     private List<TarotCard> cards = new List<TarotCard>();
-    private List<Card> hand = new List<Card>();
     private List<DraggableHolder> slots = new List<DraggableHolder>();
     [SerializeField] private RectTransform canvas;
     public static Hand instance;
@@ -63,18 +62,31 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
         newCard.setValue(cardId);
         
         cards.Add(newCard);
-        hand.Add(new Card(cardId));
         slots.Add(slot);
+        if (isBiddingOver)
+        {
+            sortCards();
+        }
 
         updateCardsPositions();
     }
 
+    private void sortCards()
+    {
+        Debug.Log("Sorting cards");
+        cards = cards.OrderBy(it => it.card.index).ToList();
+        slots = slots.OrderBy(it => ((TarotCard)it.itemSelected).card.index).ToList();
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].transform.SetSiblingIndex(i);
+        }
+    }
+
     public void removeCard(int cardId)
     {
-        var index = instance.hand.FindIndex(it => it.index == cardId);
+        var index = instance.cards.FindIndex(it => it.card.index == cardId);
         Debug.Log(index);
         cards.RemoveAt(index);
-        hand.RemoveAt(index);
         Destroy(slots[index].gameObject);
         slots.RemoveAt(index);
 
@@ -162,10 +174,12 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
         }
     }
 
-    public static List<Card> getCards() => instance.hand;
+    public static List<Card> getCards() => instance.cards.map(it => it.card);
     
     public void onDogReveal(List<int> cards, string attacker)
     {
+        sortCards();
+        updateCardsPositions();
         if (attacker != LobbyManager.getUsername()) return;
         foreach (var card in this.cards)
         {

@@ -171,7 +171,6 @@ public class LobbyManager: MonoBehaviour
                 {
                     Debug.Log($"{score.Key} -> {score.Value} points");
                 }
-                }
                 break;
             
             case "dog_reveal":
