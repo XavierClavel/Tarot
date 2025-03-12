@@ -169,7 +169,7 @@ public class LobbyManager: MonoBehaviour
                 Debug.Log($"Victory ? {gameOver.victory} with {gameOver.score} points");
                 foreach (var score in gameOver.playerScores)
                 {
-                    Debug.Log($"{score.Key} -> {score.Value} points");
+                    Debug.Log($"{score.username} -> {score.score} points");
                 }
                 break;
             

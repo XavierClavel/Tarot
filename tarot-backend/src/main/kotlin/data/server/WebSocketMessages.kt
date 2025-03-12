@@ -58,7 +58,10 @@ class GameReady(): WebSocketMessage()
 
 @Serializable
 @SerialName("game_over")
-class GameOver(val victory: Boolean, val score: Int, val playerScores: Map<String, Int>): WebSocketMessage()
+data class GameOver(val victory: Boolean, val score: Int, val playerScores: List<PlayerScore>): WebSocketMessage()
+
+@Serializable
+data class PlayerScore(val username: String, val score: Int)
 
 @Serializable
 @SerialName("hand_dealt")

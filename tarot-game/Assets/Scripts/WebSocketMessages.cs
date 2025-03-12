@@ -87,7 +87,14 @@ public class GameOver : WebSocketMessage
 {
     public bool victory;
     public int score;
-    public Dictionary<string, int> playerScores;
+    public List<PlayerScore> playerScores;
+}
+
+[System.Serializable]
+public class PlayerScore
+{
+    public string username;
+    public int score;
 }
 
 [System.Serializable]

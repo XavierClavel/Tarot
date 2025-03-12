@@ -102,7 +102,7 @@ class Game(val lobby: Lobby) {
          cards.forEach { card ->
             card.scoredBy = player
             points.add(card)
-            hands[player]!!.remove(card)
+            hands[player]!!.removeIf{ it.id == card.id}
         }
         lobby.broadcast(PlayerTurn(currentPlayer!!.username))
     }
@@ -208,7 +208,7 @@ class Game(val lobby: Lobby) {
         }
         lobby.addGameResult(result)
 
-        lobby.broadcast(GameOver(score > 0, pointsAmount, result.mapKeys { it.key.username }))
+        lobby.broadcast(GameOver(score > 0, pointsAmount, result.map { PlayerScore(it.key.username, it.value) }))
     }
 
 

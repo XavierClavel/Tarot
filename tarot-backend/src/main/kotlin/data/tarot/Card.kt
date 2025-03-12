@@ -61,4 +61,16 @@ data class Card(
     fun isExcuse() = value == -1
 
     fun isRegularCard() = color != Color.ATOUT && color != Color.EXCUSE
+
+    override fun toString(): String =
+        when {
+            isExcuse() -> "Excuse"
+            color == Color.ATOUT -> "$value d'atout"
+            isRoi() -> "Roi de $color"
+            isDame() -> "Dame de $color"
+            isValet() -> "Valet de $color"
+            isCavalier() -> "Cavalier de $color"
+            else -> "$value de $color"
+        }
+
 }
