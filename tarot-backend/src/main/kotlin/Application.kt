@@ -18,6 +18,7 @@ import org.koin.ktor.ext.inject
 import xclavel.config.appModules
 import xclavel.config.configureRouting
 import xclavel.config.configureSockets
+import xclavel.data.server.Appel
 import xclavel.data.server.BidMade
 import xclavel.data.server.CardPlayed
 import xclavel.data.server.DogMade
@@ -78,12 +79,13 @@ fun Application.module() {
 
                             when (message) {
                                 is PlayerLeft -> lobby.broadcast(message)
-                                is BidMade -> lobby.receiveBid(player, message.bid)
-                                is CardPlayed -> lobby.game?.playCard(player, message.card)
-                                is DogMade -> TODO()
                                 is StartGame -> lobby.setupGame()
                                 is GameReady -> lobby.getHand(player)
-                                else -> throw InvalidAction("Unknow action")
+                                is BidMade -> lobby.game?.receiveBid(player, message.bid)
+                                is CardPlayed -> lobby.game?.playCard(player, message.card)
+                                is DogMade -> lobby.game?.receiveDog(message.cards, player)
+                                is Appel -> lobby.game?.appel(message.color, player)
+                                else -> throw InvalidAction("Unknown action")
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()

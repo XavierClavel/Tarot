@@ -108,3 +108,22 @@ public class DogMade : WebSocketMessage
         this.cards = cards;
     }
 }
+
+[System.Serializable]
+public class AwaitAppel : WebSocketMessage
+{
+    public string username;
+}
+
+[System.Serializable]
+public class Appel : WebSocketMessage
+{
+    public TarotColor color;
+    public string username;
+
+    public Appel(TarotColor color, string username)
+    {
+        this.color = color;
+        this.username = username;
+    }
+}

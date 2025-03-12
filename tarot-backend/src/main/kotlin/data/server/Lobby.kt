@@ -54,10 +54,6 @@ class Lobby(val key: String) {
         game!!.onPlayerReady(player)
     }
 
-    suspend fun receiveBid(player: Player, bid: Bid) {
-        game!!.receiveBid(player, bid)
-    }
-
     fun addGameResult(result: Map<Player, Int>) {
         score.add(result)
     }

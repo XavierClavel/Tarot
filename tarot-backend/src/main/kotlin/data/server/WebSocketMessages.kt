@@ -4,6 +4,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
+import xclavel.data.tarot.Color
 import xclavel.data.tarot.data.tarot.Bid
 import java.util.Dictionary
 
@@ -66,3 +67,15 @@ data class HandDealt(val cards: List<Int>): WebSocketMessage()
 @Serializable
 @SerialName("bid_result")
 data class BidResult(val username: String, val bid: Bid): WebSocketMessage()
+
+@Serializable
+@SerialName("await_appel")
+data class AwaitAppel(val username: String): WebSocketMessage()
+
+@Serializable
+@SerialName("appel")
+data class Appel(val color: Color, val username: String): WebSocketMessage()
+
+@Serializable
+@SerialName("first_turn")
+data class FirstTurn(val username: String): WebSocketMessage()

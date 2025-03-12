@@ -6,5 +6,7 @@ enum class Color {
     TREFLE,
     PIQUE,
     ATOUT,
-    EXCUSE,
+    EXCUSE;
+
+    fun isRegularColor() = this == CARREAU || this == COEUR || this == TREFLE || this == PIQUE
 }

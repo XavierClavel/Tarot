@@ -171,11 +171,18 @@ public class LobbyManager: MonoBehaviour
                 {
                     Debug.Log($"{score.Key} -> {score.Value} points");
                 }
+                }
                 break;
             
             case "dog_reveal":
                 DogReveal dogReveal = JsonUtility.FromJson<DogReveal>(json);
                 EventManagers.dog.dispatchEvent(it => it.onDogReveal(dogReveal.cards, dogReveal.attacker));
+                break;
+            
+            case "appel":
+                break;
+            
+            case "await_appel":
                 break;
         }
     }
