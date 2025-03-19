@@ -137,11 +137,29 @@ public class LobbyManager: MonoBehaviour
                 currentPlayerTurn = playerTurn.username;
                 break;
             
+            //Bids
+            
+            case "await_bid":
+                string playerUsername = JsonUtility.FromJson<UsernameWrapper>(json).username;
+                EventManagers.bid.dispatchEvent(it => it.onAwaitBid(playerUsername));
+                break;
+
             case "bid_made":
                 BidMade bidMade = JsonUtility.FromJson<BidMade>(json);
                 Debug.Log(bidMade.bid);
                 EventManagers.bid.dispatchEvent(it => it.onBidMade(currentPlayerTurn, Enum.Parse<Bid>(bidMade.bid)));
                 break;
+            
+            case "bid_won":
+                BidWon bidWon = JsonUtility.FromJson<BidWon>(json);
+                EventManagers.bid.dispatchEvent(it => it.onBidWon(bidWon.username, bidWon.bid));
+                break;
+            
+            case "fausse_donne":
+                EventManagers.bid.dispatchEvent(it => it.onFausseDonne());
+                break;
+            
+            //Turns
             
             case "card_played":
                 CardPlayed cardPlayed = JsonUtility.FromJson<CardPlayed>(json);
@@ -164,7 +182,6 @@ public class LobbyManager: MonoBehaviour
                 break;
             
             case "game_over":
-                Debug.Log(json);
                 GameOver gameOver = JsonUtility.FromJson<GameOver>(json);
                 Debug.Log($"Victory ? {gameOver.victory} with {gameOver.score} points");
                 foreach (var score in gameOver.playerScores)
@@ -179,9 +196,13 @@ public class LobbyManager: MonoBehaviour
                 break;
             
             case "appel":
+                Appel appel = JsonUtility.FromJson<Appel>(json);
+                EventManagers.appel.dispatchEvent(it => it.onAppel(appel.color, appel.username));
                 break;
             
             case "await_appel":
+                AwaitAppel awaitAppel = JsonUtility.FromJson<AwaitAppel>(json);
+                EventManagers.appel.dispatchEvent(it => it.onAwaitAppel(awaitAppel.username));
                 break;
         }
     }

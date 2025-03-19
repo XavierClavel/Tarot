@@ -9,7 +9,6 @@ import kotlin.collections.any
 import kotlin.collections.filter
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.text.toLong
 
 class TarotService: KoinComponent {
     fun findBestCard(cards: List<Card>): Card {

@@ -1,8 +1,6 @@
 package xclavel.data.server
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import kotlinx.coroutines.delay
-import org.koin.core.component.get
 import org.koin.java.KoinJavaComponent.inject
 import xclavel.InvalidAction
 import xclavel.data.tarot.Card
@@ -50,16 +48,19 @@ class Game(val lobby: Lobby) {
         lobby.broadcast(BidMade(bid))
         if (bids.size != playerCount) {
             switchToNextPlayer()
+            lobby.broadcast(AwaitBid(currentPlayer!!.username))
             return
         }
 
         logger.info {"Bids over"}
         if (bids.values.all { it == Bid.PASSE }) { //fausse donne
+            bids.clear()
+            lobby.broadcast(FausseDonne())
             logger.info { "fausse donne" }
         } else {
             val highestBidder = bids.maxBy { it.value.ordinal }.key
             attackers.add(highestBidder)
-            lobby.broadcast(BidResult(highestBidder.username, bids[highestBidder]!!))
+            lobby.broadcast(BidWon(highestBidder.username, bids[highestBidder]!!))
             logger.info {"Bid won by ${highestBidder.username} with ${bids[highestBidder]}"}
             currentPlayer = highestBidder
             if (playerCount == 5) {
@@ -139,6 +140,7 @@ class Game(val lobby: Lobby) {
 
         if (!isRoundComplete()) {
             switchToNextPlayer()
+            lobby.broadcast(PlayerTurn(currentPlayer!!.username))
             return
         }
 
@@ -184,14 +186,13 @@ class Game(val lobby: Lobby) {
 
     private fun isRoundComplete(): Boolean = currentLevee.size == playersOrder.size
 
-    private suspend fun switchToNextPlayer() {
+    private fun switchToNextPlayer() {
         val playerIndex = playersOrder.indexOf(currentPlayer)
         currentPlayer = if (playerIndex == playersOrder.size - 1) {
             playersOrder[0]
         } else {
             playersOrder[playerIndex + 1]
         }
-        lobby.broadcast(PlayerTurn(currentPlayer!!.username))
     }
 
     fun isGameOver(): Boolean =

@@ -6,4 +6,5 @@ public static class EventManagers
     public static EventManager<IBidListener> bid = new EventManager<IBidListener>();
     public static EventManager<ITurnListener> turn = new EventManager<ITurnListener>();
     public static EventManager<IDogListener> dog = new EventManager<IDogListener>();
+    public static EventManager<IAppelListener> appel = new EventManager<IAppelListener>();
 }
