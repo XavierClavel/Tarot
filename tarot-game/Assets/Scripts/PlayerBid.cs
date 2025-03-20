@@ -9,6 +9,8 @@ public class PlayerBid: MonoBehaviour
 
     public void setUsername(string username) => this.username.text = username;
 
+    public void clearBid() => this.bid.text = "";
+
     public void setBid(Bid bid)
     {
         this.bid.text = bid.ToString();

@@ -16,6 +16,10 @@ class Deck {
         cards = (1..78).toMutableList()
     }
 
+    fun collectCards(cardsPiles: List<List<Int>>) {
+        cards = cardsPiles.shuffled().flatten().toMutableList()
+    }
+
     fun cut() {
         val cutIndex = (MIN_CUT_INDEX..MAX_CUT_INDEX).random()
         val subList1 = cards.subList(0, cutIndex)

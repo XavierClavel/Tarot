@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
+public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener, IFausseDonneListener
 {
     [SerializeField] private TarotCard cardPrefab;
     [SerializeField] private DraggableHolder slotPrefab;
@@ -34,6 +34,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
         EventManagers.game.registerListener(this);
         EventManagers.turn.registerListener(this);
         EventManagers.dog.registerListener(this);
+        EventManagers.fausseDonne.registerListener(this);
         //generateCards(new List<int>{10,11,12,13,14});
     }
 
@@ -42,6 +43,7 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
         EventManagers.game.unregisterListener(this);
         EventManagers.turn.unregisterListener(this);
         EventManagers.dog.unregisterListener(this);
+        EventManagers.fausseDonne.unregisterListener(this);
     }
 
     private void generateCards(List<int> hand)
@@ -194,5 +196,11 @@ public class Hand: MonoBehaviour, IGameListener, ITurnListener, IDogListener
                 card.whitenImage();
             }
         }
+    }
+
+    public void onFausseDonne()
+    {
+        var cardsToRemove = cards.map(it => it.card.index);
+        cardsToRemove.ForEach(removeCard);
     }
 }

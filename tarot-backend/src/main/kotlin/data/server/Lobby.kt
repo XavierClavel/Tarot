@@ -13,6 +13,7 @@ class Lobby(val key: String) {
     val score : MutableList<Map<Player, Int>> = mutableListOf()
     var game: Game? = null
     val deck = Deck()
+    var donneur: Player? = null
 
     val json = Json { classDiscriminator = "type" }
 
@@ -42,9 +43,10 @@ class Lobby(val key: String) {
     fun isEmpty(): Boolean = players.isEmpty()
 
     suspend fun setupGame() {
+        donneur = players.values.toList()[0]
         game = Game(this)
         game!!.dealCards()
-        broadcast(StartGame(""))
+        broadcast(StartGame())
     }
 
     suspend fun getHand(player: Player) {

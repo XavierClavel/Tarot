@@ -24,6 +24,7 @@ public class PlayerLeft : WebSocketMessage {
 [System.Serializable]
 public class CardPlayed : WebSocketMessage {
     public int card;
+    public string username = "";
 
     public CardPlayed(int card)
     {
@@ -41,8 +42,6 @@ public class HandDealt : WebSocketMessage
 [System.Serializable]
 public class StartGame : WebSocketMessage
 {
-    public string parameters = "";
-
     public StartGame()
     {
         this.type = "start_game";
@@ -65,15 +64,29 @@ public class PlayerTurn : WebSocketMessage
 }
 
 [System.Serializable]
+public class UsernameWrapper : WebSocketMessage
+{
+    public string username;
+}
+
+[System.Serializable]
 public class BidMade : WebSocketMessage
 {
     public string bid;
+    public string username = "";
 
     public BidMade(Bid bid)
     {
         this.type = "bid_made";
         this.bid = bid.ToString();
     }
+}
+
+[System.Serializable]
+public class BidWon : WebSocketMessage
+{
+    public Bid bid;
+    public string username;
 }
 
 [System.Serializable]

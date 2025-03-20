@@ -10,6 +10,7 @@ import xclavel.data.tarot.GameMode
 import xclavel.data.tarot.data.tarot.Bid
 import xclavel.services.services.TarotService
 import xclavel.utils.logger
+import kotlin.collections.toList
 
 class Game(val lobby: Lobby) {
     val tarotService by inject<TarotService>(TarotService::class.java)
@@ -34,8 +35,14 @@ class Game(val lobby: Lobby) {
         playersReady.add(player)
         if (playersReady.size != playerCount ) return
         playersOrder = lobby.players.values.toMutableList()
-        currentPlayer = playersOrder[0]
-        lobby.broadcast(PlayerTurn(currentPlayer!!.username))
+        onAllPlayersReady()
+    }
+
+    suspend fun onAllPlayersReady() {
+        currentPlayer = lobby.donneur
+        switchToNextPlayer()
+        lobby.donneur = currentPlayer
+        lobby.broadcast(AwaitBid(currentPlayer!!.username))
     }
 
 
@@ -45,7 +52,7 @@ class Game(val lobby: Lobby) {
         if (player != currentPlayer) throw InvalidAction("Not your turn")
         if (!isBidValid(bid)) throw InvalidAction("Invalid bid")
         bids[player] = bid;
-        lobby.broadcast(BidMade(bid))
+        lobby.broadcast(BidMade(bid, player.username))
         if (bids.size != playerCount) {
             switchToNextPlayer()
             lobby.broadcast(AwaitBid(currentPlayer!!.username))
@@ -54,9 +61,7 @@ class Game(val lobby: Lobby) {
 
         logger.info {"Bids over"}
         if (bids.values.all { it == Bid.PASSE }) { //fausse donne
-            bids.clear()
-            lobby.broadcast(FausseDonne())
-            logger.info { "fausse donne" }
+            onFausseDonne()
         } else {
             val highestBidder = bids.maxBy { it.value.ordinal }.key
             attackers.add(highestBidder)
@@ -69,6 +74,17 @@ class Game(val lobby: Lobby) {
                 revealDog()
             }
         }
+    }
+
+    suspend fun onFausseDonne() {
+        bids.clear()
+        lobby.broadcast(FausseDonne())
+        logger.info { "fausse donne" }
+        delay(1000)
+        lobby.deck.collectCards(cardsDealing!!.toList())
+        dealCards()
+        playersOrder.forEach {player -> lobby.unicast(player, HandDealt(cardsDealing!!.hands[player]!!)) }
+        onAllPlayersReady()
     }
 
     suspend fun revealDog() {
@@ -136,7 +152,7 @@ class Game(val lobby: Lobby) {
 
         currentLevee.add(card)
         hands[player]!!.removeIf{ it.id == cardIndex}
-        lobby.broadcast(CardPlayed(cardIndex))
+        lobby.broadcast(CardPlayed(cardIndex, player.username))
 
         if (!isRoundComplete()) {
             switchToNextPlayer()

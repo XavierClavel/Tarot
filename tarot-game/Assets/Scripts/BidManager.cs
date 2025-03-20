@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class BidManager: MonoBehaviour, IBidListener, ITurnListener
+public class BidManager: MonoBehaviour, IBidListener, IFausseDonneListener
 {
     [SerializeField] private PlayerBid playerBidPrefab;
     [SerializeField] private Transform playerBidsLayout;
@@ -17,7 +18,7 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
     private void Awake()
     {
         EventManagers.bid.registerListener(this);
-        EventManagers.turn.registerListener(this);
+        EventManagers.fausseDonne.registerListener(this);
         makeBidLayout.SetActive(false);
         foreach (string player in LobbyManager.getPlayers())
         {
@@ -31,12 +32,19 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
     private void OnDestroy()
     {
         EventManagers.bid.unregisterListener(this);
-        EventManagers.turn.unregisterListener(this);
+        EventManagers.fausseDonne.unregisterListener(this);
     }
 
     public void makeBid(int bid)
     {
+        makeBidLayout.SetActive(false);
         LobbyManager.sendWebSocketMessage(new BidMade((Bid)bid));
+    }
+
+    public void onAwaitBid(string username)
+    {
+        if (username != LobbyManager.getUsername()) return;
+        makeBidLayout.SetActive(true);
     }
 
     public void onBidMade(string username, Bid bid)
@@ -51,34 +59,20 @@ public class BidManager: MonoBehaviour, IBidListener, ITurnListener
                Debug.Log($"Deactivated {i}");
            }
        }
-
-       bidsReceived++;
-       Debug.Log($"{bidsReceived} bids received");
-       if (bidsReceived == LobbyManager.getPlayers().Count)
-       {
-           Debug.Log("Hiding bids");
-           playerBidsLayout.gameObject.SetActive(false);
-           Destroy(this);
-       }
     }
 
-    public void onPlayerTurn(string username)
+    public void onBidWon(string username, Bid bid)
     {
-
+        Debug.Log("Hiding bids");
+        playerBidsLayout.gameObject.SetActive(false);
+        Destroy(this);
     }
 
-    public void onMyTurnStart()
+    public void onFausseDonne()
     {
-        makeBidLayout.SetActive(true);
-    }
-
-    public void onMyTurnEnd()
-    {
-        makeBidLayout.SetActive(false);
-    }
-
-    public void onTurnWon(string username)
-    {
-        
+        foreach (var playerBid in playerBidsDisplay)
+        {
+            playerBid.Value.clearBid();
+        }
     }
 }

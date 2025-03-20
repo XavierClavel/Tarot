@@ -120,6 +120,7 @@ public class LobbyManager: MonoBehaviour
                 break;
 
             case "hand_dealt":
+                Debug.Log("hand dealt");
                 HandDealt handDealt = JsonUtility.FromJson<HandDealt>(json);
                 EventManagers.game.dispatchEvent(it => it.onHandReceived(handDealt.cards));
                 break;
@@ -147,7 +148,7 @@ public class LobbyManager: MonoBehaviour
             case "bid_made":
                 BidMade bidMade = JsonUtility.FromJson<BidMade>(json);
                 Debug.Log(bidMade.bid);
-                EventManagers.bid.dispatchEvent(it => it.onBidMade(currentPlayerTurn, Enum.Parse<Bid>(bidMade.bid)));
+                EventManagers.bid.dispatchEvent(it => it.onBidMade(bidMade.username, Enum.Parse<Bid>(bidMade.bid)));
                 break;
             
             case "bid_won":
@@ -156,22 +157,23 @@ public class LobbyManager: MonoBehaviour
                 break;
             
             case "fausse_donne":
-                EventManagers.bid.dispatchEvent(it => it.onFausseDonne());
+                Debug.Log("fausse donne");
+                EventManagers.fausseDonne.dispatchEvent(it => it.onFausseDonne());
                 break;
             
             //Turns
             
             case "card_played":
                 CardPlayed cardPlayed = JsonUtility.FromJson<CardPlayed>(json);
-                Debug.Log($"{currentPlayerTurn} played {new Card(cardPlayed.card).toString()}");
-                EventManagers.game.dispatchEvent(it => it.onCardPlayed(currentPlayerTurn, cardPlayed.card));
-                if (currentPlayerTurn == username)
+                Debug.Log($"{cardPlayed.username} played {new Card(cardPlayed.card).toString()}");
+                EventManagers.game.dispatchEvent(it => it.onCardPlayed(cardPlayed.username, cardPlayed.card));
+                if (cardPlayed.username == username)
                 {
                     EventManagers.game.dispatchEvent(it => it.onCardPlayedByMe(cardPlayed.card));
                 }
                 else
                 {
-                    EventManagers.game.dispatchEvent(it => it.onCardPlayedByOther(currentPlayerTurn, cardPlayed.card));
+                    EventManagers.game.dispatchEvent(it => it.onCardPlayedByOther(cardPlayed.username, cardPlayed.card));
                 }
                 break;
 

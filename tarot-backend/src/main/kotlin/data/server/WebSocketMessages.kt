@@ -26,7 +26,7 @@ data class PlayerTurn(val username: String) : WebSocketMessage()
 
 @Serializable
 @SerialName("card_played")
-data class CardPlayed(val card: Int) : WebSocketMessage()
+data class CardPlayed(val card: Int, val username: String) : WebSocketMessage()
 
 @Serializable
 @SerialName("turn_won")
@@ -45,7 +45,7 @@ data class DogMade(val cards: List<Int>): WebSocketMessage()
 //Sent by server to broadcast game start
 @Serializable
 @SerialName("start_game")
-data class StartGame(val parameters: String) : WebSocketMessage()
+class StartGame() : WebSocketMessage()
 
 //Sent by client to signal game scene is fully loaded
 @Serializable
@@ -71,7 +71,7 @@ data class AwaitBid(val username: String): WebSocketMessage()
 
 @Serializable
 @SerialName("bid_made")
-data class BidMade(val bid: Bid) : WebSocketMessage()
+data class BidMade(val bid: Bid, val username: String) : WebSocketMessage()
 
 @Serializable
 @SerialName("bid_won")
