@@ -9,7 +9,7 @@ services:
     networks:
       - back-tier
     healthcheck:
-      test: curl --fail http://localhost:4444/health
+      test: curl --fail http://localhost:3535/health
       interval: 30s
       timeout: 5s
       retries: 3
