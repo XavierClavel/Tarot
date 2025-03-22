@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "2.1.10"
     id("io.ktor.plugin") version "3.1.1"
     kotlin("plugin.serialization") version "2.1.10"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "xclavel"
@@ -37,4 +38,9 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koinVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+}
+
+tasks.shadowJar {
+    archiveBaseName.set("tarot")
+    archiveClassifier.set("")
 }
