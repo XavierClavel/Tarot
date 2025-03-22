@@ -21,4 +21,4 @@ FROM amazoncorretto:22 AS runtime
 EXPOSE 8080:8080
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/tarot.jar
-ENTRYPOINT ["java","-jar","/app/cooknco.jar"]
+ENTRYPOINT ["java","-jar","/app/tarot.jar"]
