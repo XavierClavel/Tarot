@@ -4,6 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.response.respond
+import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import io.ktor.server.websocket.webSocket
@@ -55,6 +56,10 @@ fun Application.module() {
     configureRouting()
 
     routing {
+        get("/health") {
+            call.respond(mapOf("status" to "UP"))
+        }
+
         post("/lobby") {
             call.respond(lobbyService.createLobby())
         }
@@ -103,10 +108,8 @@ fun Application.module() {
 }
 
 //TODO: petit sec
-//TODO: chien
 //TODO: chelem
 //TODO: poignées
 //TODO: petit au bout
 //TODO: appel au roi
 //TODO: 2 players mode
-//TODO: excuse points switch

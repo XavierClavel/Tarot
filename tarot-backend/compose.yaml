@@ -1,0 +1,25 @@
+name: tarot
+
+services:
+  backend:
+    build:
+      context: .
+    ports:
+      - "4444:4444"
+    networks:
+      - front-tier
+    healthcheck:
+      test: curl --fail http://localhost:4444/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  pictures: {}
+  logs: {}
+  postgres_data: {}
+  redis_data: {}
+
+networks:
+  back-tier: {}

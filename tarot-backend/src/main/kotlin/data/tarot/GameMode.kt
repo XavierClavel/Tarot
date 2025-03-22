@@ -4,6 +4,8 @@ data class GameMode(
     val playersAmount: Int,
     val cardsPerDistribution: Int,
     val cardsPerPlayer: Int,
+    val tableStacksPerPlayer: Int = 0,
+    val additionalCards: Int = 0,
     val dogSize: Int,
     val appel: Boolean,
     val simplePoignee: Int,
@@ -27,7 +29,17 @@ data class GameMode(
     companion object {
         fun getRules(playerAmount: Int) =
             when (playerAmount) {
-                2 -> TODO()
+                2 -> GameMode(
+                    playersAmount = 2,
+                    cardsPerDistribution = 3,
+                    cardsPerPlayer = 24,
+                    dogSize = 6,
+                    appel = false,
+                    simplePoignee = 13,
+                    doublePoignee = 15,
+                    triplePoignee = 18,
+                    tableStacksPerPlayer = 6,
+                )
                 3 -> GameMode(
                     playersAmount = 3,
                     cardsPerDistribution = 4,

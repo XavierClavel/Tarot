@@ -59,9 +59,19 @@ data class GameOver(val victory: Boolean, val score: Int, val playerScores: List
 @Serializable
 data class PlayerScore(val username: String, val score: Int)
 
+//Dealing
+
 @Serializable
 @SerialName("hand_dealt")
 data class HandDealt(val cards: List<Int>): WebSocketMessage()
+
+@Serializable
+@SerialName("public_cards_dealt")
+data class PublicCardsDealt(val publicCards: List<Int>): WebSocketMessage()
+
+@Serializable
+@SerialName("reveal_card")
+data class RevealCard(val card: Int, val username: String): WebSocketMessage()
 
 //Bids
 
@@ -90,6 +100,8 @@ data class AwaitAppel(val username: String): WebSocketMessage()
 @Serializable
 @SerialName("appel")
 data class Appel(val color: Color, val username: String): WebSocketMessage()
+
+//
 
 @Serializable
 @SerialName("first_turn")
