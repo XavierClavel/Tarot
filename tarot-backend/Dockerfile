@@ -18,7 +18,7 @@ RUN gradle shadowJar --no-daemon -x test
 
 # Stage 3: Create the Runtime Image
 FROM amazoncorretto:22 AS runtime
-EXPOSE 8080:8080
+EXPOSE 3535:3535
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/tarot.jar
 ENTRYPOINT ["java","-jar","/app/tarot.jar"]
